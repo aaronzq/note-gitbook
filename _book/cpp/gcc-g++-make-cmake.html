@@ -1,0 +1,496 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>gcc, g++, make, cmake · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="source: https://blog.csdn.net/hblhly/java/article/details/80740493 https://blog.csdn.net/FX677588/java/article/details/53159019">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="compile-link.html" />
+    
+    
+    <link rel="prev" href="eigen.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../gitbook.html">
+            
+                <a href="../gitbook.html">
+            
+                    
+                    Gitbook Notes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../git.html">
+            
+                <a href="../git.html">
+            
+                    
+                    Git Notes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    C++ Notes
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="std.html">
+            
+                <a href="std.html">
+            
+                    
+                    Standard Library
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="alg.html">
+            
+                <a href="alg.html">
+            
+                    
+                    Algorithms
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="alg2.html">
+            
+                <a href="alg2.html">
+            
+                    
+                    Algorithms2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="eigen.html">
+            
+                <a href="eigen.html">
+            
+                    
+                    Eigen
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.5" data-path="gcc-g++-make-cmake.html">
+            
+                <a href="gcc-g++-make-cmake.html">
+            
+                    
+                    gcc, g++, make, cmake
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="compile-link.html">
+            
+                <a href="compile-link.html">
+            
+                    
+                    Compile, Link
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../python-notes/">
+            
+                <a href="../python-notes/">
+            
+                    
+                    Python Notes
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../python-notes/basics.html">
+            
+                <a href="../python-notes/basics.html">
+            
+                    
+                    Basics
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../python-notes/taichi.html">
+            
+                <a href="../python-notes/taichi.html">
+            
+                    
+                    Taichi
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../gibberish/">
+            
+                <a href="../gibberish/">
+            
+                    
+                    Gibberish
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../gibberish/shadowsocks-on-qcloud.html">
+            
+                <a href="../gibberish/shadowsocks-on-qcloud.html">
+            
+                    
+                    Shadowsocks on Qcloud
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../gibberish/chords.html">
+            
+                <a href="../gibberish/chords.html">
+            
+                    
+                    Chords
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../gibberish/internet-protocal.html">
+            
+                <a href="../gibberish/internet-protocal.html">
+            
+                    
+                    Internet protocal
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >gcc, g++, make, cmake</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="gcc-g-make-cmake">gcc, g++, make, cmake</h1>
+<p>&#x6587;&#x672C;&#x7A0B;&#x5E8F;&#x5230;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x751F;&#x6210;&#x65E0;&#x8BBA;&#x5728;&#x4EC0;&#x4E48;&#x5E73;&#x53F0;&#x5927;&#x81F4;&#x5206;&#x4E3A;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x90E8;&#x5206;&#xFF1A;</p>
+<ol>
+<li>&#x7528;&#x7F16;&#x8F91;&#x5668;&#x7F16;&#x5199;&#x6E90;&#x4EE3;&#x7801;&#xFF0C;&#x5982;.c&#x6587;&#x4EF6;&#x3002; </li>
+<li>&#x7528;&#x7F16;&#x8BD1;&#x5668;&#x7F16;&#x8BD1;&#x4EE3;&#x7801;&#x751F;&#x6210;&#x76EE;&#x6807;&#x6587;&#x4EF6;&#xFF0C;&#x5982;.o&#x3002; </li>
+<li>&#x7528;&#x94FE;&#x63A5;&#x5668;&#x8FDE;&#x63A5;&#x76EE;&#x6807;&#x4EE3;&#x7801;&#x751F;&#x6210;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#xFF0C;&#x5982;.exe&#x3002; </li>
+</ol>
+<p>Linux&#x5E73;&#x53F0;&#x4E0B;&#xFF0C;.o&#x6587;&#x4EF6;&#x4E00;&#x822C;&#x662F;&#x901A;&#x8FC7;&#x7F16;&#x8BD1;&#x7684;&#x4F46;&#x8FD8;&#x672A;&#x94FE;&#x63A5;&#x7684;&#x76EE;&#x6807;&#x6587;&#x4EF6;&#xFF0C;.out&#x6587;&#x4EF6;&#x4E00;&#x822C;&#x90FD;&#x662F;&#x7ECF;&#x8FC7;&#x76F8;&#x5E94;&#x7684;&#x94FE;&#x63A5;&#x4EA7;&#x751F;&#x7684;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#xFF08;linux&#x4E0B;&#xFF09;&#x3002;&#x5F53;&#x7136;&#x8FD9;&#x662F;&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#x4EBA;&#x4EEC;&#x8FD9;&#x4E48;&#x8BBE;&#x7F6E;&#xFF0C;&#x800C;&#x771F;&#x6B63;&#x7684;&#xFF0C;&#x5728;linux&#x4E2D; .o&#x901A;&#x5E38;&#x4FDD;&#x5B58;&#x7684;&#x662F;&#x53EF;&#x6267;&#x884C;&#x4EE3;&#x7801; &#xFF0C;&#x81F3;&#x4E8E;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x5219;&#x6CA1;&#x6709;&#x89C4;&#x5B9A;&#x6269;&#x5C55;&#x540D;&#xFF0C;&#x7528;&#x7684;&#x662F;&#x6587;&#x4EF6;&#x5C5E;&#x6027;&#x4F4D;&#x6765;&#x51B3;&#x5B9A;&#x7684;&#x662F;&#x5426;&#x53EF;&#x6267;&#x884C;&#x3002;&#x5728;chmod&#x4E2D;&#x8BBE;&#x7F6E;&#x3002; &#x6211;&#x4EEC;&#x77E5;&#x9053;&#x7F16;&#x8BD1;&#x548C;&#x94FE;&#x63A5;&#x9636;&#x6BB5;&#x662F;&#x9760;g++&#x548C;gcc&#x7F16;&#x8F91;&#x5668;&#x6765;&#x5B8C;&#x6210;&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A;&#x7F16;&#x8BD1;&#x9636;&#x6BB5;&#x662F;&#x76F8;&#x540C;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x94FE;&#x63A5;&#x9636;&#x6BB5;g++&#x9ED8;&#x8BA4;&#x94FE;&#x63A5;c++&#x5E93;&#xFF0C;&#x6240;&#x4EE5;&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#x7528;gcc&#x7F16;&#x8BD1;c&#x6587;&#x4EF6;&#xFF0C;&#x800C;g++&#x7F16;&#x8BD1;cpp&#x6587;&#x4EF6;&#x3002;&#x5F53;&#x7136;g++&#x4E5F;&#x53EF;&#x4EE5;&#x7F16;&#x8BD1;c&#x6587;&#x4EF6;&#xFF0C;&#x800C;gcc&#x7F16;&#x8BD1;cpp&#x6587;&#x4EF6;&#x5219;&#x9700;&#x8981;&#x5728;&#x540E;&#x9762;&#x52A0;&#x4E0A;&#x53C2;&#x6570;-lstdc++&#xFF0C;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x94FE;&#x63A5;c++&#x5E93;&#x3002; </p>
+<p>&#x9996;&#x5148;&#x4ECB;&#x7ECD;&#x4E00;&#x4E0B;GCC&#xFF1A;GNU Compiler Collection(GNU &#x7F16;&#x8BD1;&#x5668;&#x96C6;&#x5408;)&#xFF0C;&#x5728;&#x4E3A;Linux&#x5F00;&#x53D1;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x65F6;&#xFF0C;&#x7EDD;&#x5927;&#x591A;&#x6570;&#x60C5;&#x51B5;&#x4E0B;&#x4F7F;&#x7528;&#x7684;&#x90FD;&#x662F;C&#x8BED;&#x8A00;&#xFF0C;&#x56E0;&#x6B64;&#x51E0;&#x4E4E;&#x6BCF;&#x4E00;&#x4F4D;Linux&#x7A0B;&#x5E8F;&#x5458;&#x9762;&#x4E34;&#x7684;&#x9996;&#x8981;&#x95EE;&#x9898;&#x90FD;&#x662F;&#x5982;&#x4F55;&#x7075;&#x6D3B;&#x8FD0;&#x7528;C&#x7F16;&#x8BD1;&#x5668;&#x3002;&#x76EE;&#x524D; Linux&#x4E0B;&#x6700;&#x5E38;&#x7528;&#x7684;C&#x8BED;&#x8A00;&#x7F16;&#x8BD1;&#x5668;&#x662F;GCC&#xFF08;GNU Compiler Collection&#xFF09;&#xFF0C;&#x5B83;&#x662F;GNU&#x9879;&#x76EE;&#x4E2D;&#x7B26;&#x5408;ANSI C&#x6807;&#x51C6;&#x7684;&#x7F16;&#x8BD1;&#x7CFB;&#x7EDF;&#xFF0C;&#x80FD;&#x591F;&#x7F16;&#x8BD1;&#x7528;C&#x3001;C++&#x548C;Object C&#x7B49;&#x8BED;&#x8A00;&#x7F16;&#x5199;&#x7684;&#x7A0B;&#x5E8F;&#x3002;GCC&#x4E0D;&#x4EC5;&#x529F;&#x80FD;&#x975E;&#x5E38;&#x5F3A;&#x5927;&#xFF0C;&#x7ED3;&#x6784;&#x4E5F;&#x5F02;&#x5E38;&#x7075;&#x6D3B;&#x3002;&#x6700;&#x503C;&#x5F97;&#x79F0;&#x9053;&#x7684;&#x4E00;&#x70B9;&#x5C31;&#x662F;&#x5B83;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4E0D;&#x540C;&#x7684;&#x524D;&#x7AEF;&#x6A21;&#x5757;&#x6765;&#x652F;&#x6301;&#x5404;&#x79CD;&#x8BED;&#x8A00;&#xFF0C;&#x5982;Java&#x3001; Fortran&#x3001;Pascal&#x3001;Modula-3&#x548C;Ada&#x7B49;&#x3002;</p>
+<h3 id="gcc&#x4E0E;g&#x533A;&#x522B;&#xFF1A;">gcc&#x4E0E;g++&#x533A;&#x522B;&#xFF1A;</h3>
+<p>gcc&#x662F;GCC&#x4E2D;&#x7684;GNU C Compiler&#xFF08;C &#x7F16;&#x8BD1;&#x5668;&#xFF09;<br>g++&#x662F;GCC&#x4E2D;&#x7684;GNU C++ Compiler&#xFF08;C++&#x7F16;&#x8BD1;&#x5668;&#xFF09;<br>&#x66F4;&#x51C6;&#x786E;&#x7684;&#x8BF4;&#x6CD5;&#x662F;&#xFF1A;gcc&#x8C03;&#x7528;&#x4E86;C compiler&#xFF0C;&#x800C;g++&#x8C03;&#x7528;&#x4E86;C++ compiler</p>
+<p>gcc&#x548C;g++&#x7684;&#x4E3B;&#x8981;&#x533A;&#x522B;</p>
+<ol>
+<li>&#x5BF9;&#x4E8E; <em>.c&#x548C;</em>.cpp&#x6587;&#x4EF6;&#xFF0C;gcc&#x5206;&#x522B;&#x5F53;&#x505A;c&#x548C;cpp&#x6587;&#x4EF6;&#x7F16;&#x8BD1;&#xFF08;c&#x548C;cpp&#x7684;&#x8BED;&#x6CD5;&#x5F3A;&#x5EA6;&#x662F;&#x4E0D;&#x4E00;&#x6837;&#x7684;&#xFF09;; g++&#x5219;&#x7EDF;&#x4E00;&#x5F53;&#x505A;cpp&#x6587;&#x4EF6;&#x7F16;&#x8BD1;;</li>
+<li>&#x4F7F;&#x7528;g++&#x7F16;&#x8BD1;&#x6587;&#x4EF6;&#x65F6;&#xFF0C;g++&#x4F1A;&#x81EA;&#x52A8;&#x94FE;&#x63A5;&#x6807;&#x51C6;&#x5E93;STL&#xFF0C;&#x800C;gcc&#x4E0D;&#x4F1A;&#x81EA;&#x52A8;&#x94FE;&#x63A5;STL&#xFF0C;&#x5728;&#x7528;gcc&#x7F16;&#x8BD1;c++&#x6587;&#x4EF6;&#x65F6;&#xFF0C;&#x4E3A;&#x4E86;&#x80FD;&#x591F;&#x4F7F;&#x7528;STL&#xFF0C;&#x9700;&#x8981;&#x52A0;&#x53C2;&#x6570; &#x2013;lstdc++ &#xFF0C;&#x4F46;&#x8FD9;&#x5E76;&#x4E0D;&#x4EE3;&#x8868; gcc &#x2013;lstdc++ &#x548C; g++&#x7B49;&#x4EF7;;</li>
+<li>3.gcc&#x5728;&#x7F16;&#x8BD1;C&#x6587;&#x4EF6;&#x65F6;&#xFF0C;&#x53EF;&#x4F7F;&#x7528;&#x7684;&#x9884;&#x5B9A;&#x4E49;&#x5B8F;&#x662F;&#x6BD4;&#x8F83;&#x5C11;&#x7684;;</li>
+<li>4.gcc&#x5728;&#x7F16;&#x8BD1;cpp&#x6587;&#x4EF6;&#x65F6;/g++&#x5728;&#x7F16;&#x8BD1;c&#x6587;&#x4EF6;&#x548C;cpp&#x6587;&#x4EF6;&#x65F6;&#xFF08;&#x8FD9;&#x65F6;&#x5019;gcc&#x548C;g++&#x8C03;&#x7528;&#x7684;&#x90FD;&#x662F;cpp&#x6587;&#x4EF6;&#x7684;&#x7F16;&#x8BD1;&#x5668;&#xFF09;&#xFF0C;&#x4F1A;&#x52A0;&#x5165;&#x4E00;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x5B8F;&#xFF0C;&#x8FD9;&#x4E9B;&#x5B8F;&#x5982;&#x4E0B;&#xFF1A; <code>defineGXX_WEAK 1 define __cplusplus 1 define __DEPRECATED 1 define GNUG 4 define __EXCEPTIONS 1 define private_extern extern</code></li>
+</ol>
+<h3 id="g-&#x7684;&#x7B80;&#x5355;&#x4F7F;&#x7528;">g++ &#x7684;&#x7B80;&#x5355;&#x4F7F;&#x7528;</h3>
+<pre><code class="lang-text">g++ -o name_of_executable src_file1 src_file2 src_file3
+
+e.g.
+g++ -o test_sort.exe test_sort.cpp
+</code></pre>
+<h3 id="gccg&#x4E0E;make&#x533A;&#x522B;&#xFF1A;">gcc/g++&#x4E0E;make&#x533A;&#x522B;&#xFF1A;</h3>
+<p>&#x5F53;&#x4F60;&#x7684;&#x7A0B;&#x5E8F;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x6E90;&#x6587;&#x4EF6;&#x65F6;&#xFF0C;&#x76F4;&#x63A5;&#x5C31;&#x53EF;&#x4EE5;&#x7528;gcc&#x547D;&#x4EE4;&#x7F16;&#x8BD1;&#x5B83;&#x3002;&#x4F46;&#x662F;&#x5F53;&#x4F60;&#x7684;&#x7A0B;&#x5E8F;&#x5305;&#x542B;&#x5F88;&#x591A;&#x4E2A;&#x6E90;&#x6587;&#x4EF6;&#x65F6;&#xFF0C;&#x7528;gcc&#x547D;&#x4EE4;&#x9010;&#x4E2A;&#x53BB;&#x7F16;&#x8BD1;&#x65F6;&#xFF0C;&#x4F60;&#x5C31;&#x5F88;&#x5BB9;&#x6613;&#x6DF7;&#x4E71;&#x800C;&#x4E14;&#x5DE5;&#x4F5C;&#x91CF;&#x5927;.</p>
+<p>&#x6240;&#x4EE5;&#x51FA;&#x73B0;&#x4E86;make&#x5DE5;&#x5177;&#xFF01;make&#x5DE5;&#x5177;&#x53EF;&#x4EE5;&#x770B;&#x6210;&#x662F;&#x4E00;&#x4E2A;&#x667A;&#x80FD;&#x7684;&#x6279;&#x5904;&#x7406;&#x5DE5;&#x5177;&#xFF0C;&#x5B83;&#x672C;&#x8EAB;&#x5E76;&#x6CA1;&#x6709;&#x7F16;&#x8BD1;&#x548C;&#x94FE;&#x63A5;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x800C;&#x662F;&#x7528;&#x7C7B;&#x4F3C;&#x4E8E;&#x6279;&#x5904;&#x7406;&#x7684;&#x65B9;&#x5F0F;&#x2014;&#x901A;&#x8FC7;&#x8C03;&#x7528;makefile&#x6587;&#x4EF6;&#x4E2D;&#x7528;&#x6237;&#x6307;&#x5B9A;&#x7684;&#x547D;&#x4EE4;&#x6765;&#x8FDB;&#x884C;&#x7F16;&#x8BD1;&#x548C;&#x94FE;&#x63A5;&#x7684;&#x3002;</p>
+<p>makefile&#x662F;&#x4EC0;&#x4E48;&#xFF1F;&#x7B80;&#x5355;&#x7684;&#x8BF4;&#x5C31;&#x50CF;&#x4E00;&#x9996;&#x6B4C;&#x7684;&#x4E50;&#x8C31;&#xFF0C;make&#x5DE5;&#x5177;&#x5C31;&#x50CF;&#x6307;&#x6325;&#x5BB6;&#xFF0C;&#x6307;&#x6325;&#x5BB6;&#x6839;&#x636E;&#x4E50;&#x8C31;&#x6307;&#x6325;&#x6574;&#x4E2A;&#x4E50;&#x56E2;&#x600E;&#x4E48;&#x6837;&#x6F14;&#x594F;&#xFF0C;make&#x5DE5;&#x5177;&#x5C31;&#x6839;&#x636E;makefile&#x4E2D;&#x7684;&#x547D;&#x4EE4;&#x8FDB;&#x884C;&#x7F16;&#x8BD1;&#x548C;&#x94FE;&#x63A5;&#x7684;&#x3002;makefile&#x547D;&#x4EE4;&#x4E2D;&#x5C31;&#x5305;&#x542B;&#x4E86;&#x8C03;&#x7528;gcc&#xFF08;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x522B;&#x7684;&#x7F16;&#x8BD1;&#x5668;&#xFF09;&#x53BB;&#x7F16;&#x8BD1;&#x67D0;&#x4E2A;&#x6E90;&#x6587;&#x4EF6;&#x7684;&#x547D;&#x4EE4;&#x3002;</p>
+<h3 id="make&#x4E0E;cmake&#x533A;&#x522B;&#xFF1A;">make&#x4E0E;cmake&#x533A;&#x522B;&#xFF1A;</h3>
+<p>makefile&#x5728;&#x4E00;&#x4E9B;&#x7B80;&#x5355;&#x7684;&#x5DE5;&#x7A0B;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x4EBA;&#x5DE5;&#x624B;&#x4E0B;&#xFF0C;&#x4F46;&#x662F;&#x5F53;&#x5DE5;&#x7A0B;&#x975E;&#x5E38;&#x5927;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x624B;&#x5199;makefile&#x4E5F;&#x662F;&#x975E;&#x5E38;&#x9EBB;&#x70E6;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x6362;&#x4E86;&#x4E2A;&#x5E73;&#x53F0;makefile&#x53C8;&#x8981;&#x91CD;&#x65B0;&#x4FEE;&#x6539;&#x3002;</p>
+<p>&#x8FD9;&#x65F6;&#x5019;&#x5C31;&#x51FA;&#x73B0;&#x4E86;Cmake&#x8FD9;&#x4E2A;&#x5DE5;&#x5177;&#xFF0C;cmake&#x5C31;&#x53EF;&#x4EE5;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x7684;&#x751F;&#x6210;makefile&#x6587;&#x4EF6;&#x7ED9;&#x4E0A;&#x9762;&#x90A3;&#x4E2A;make&#x7528;&#x3002;&#x5F53;&#x7136;cmake&#x8FD8;&#x6709;&#x5176;&#x4ED6;&#x529F;&#x80FD;&#xFF0C;&#x5C31;&#x662F;&#x53EF;&#x4EE5;&#x8DE8;&#x5E73;&#x53F0;&#x751F;&#x6210;&#x5BF9;&#x5E94;&#x5E73;&#x53F0;&#x80FD;&#x7528;&#x7684;makefile&#xFF0C;&#x4F60;&#x4E0D;&#x7528;&#x518D;&#x81EA;&#x5DF1;&#x53BB;&#x4FEE;&#x6539;&#x4E86;&#x3002;</p>
+<p>&#x53EF;&#x662F;cmake&#x6839;&#x636E;&#x4EC0;&#x4E48;&#x751F;&#x6210;makefile&#x5462;&#xFF1F;&#x5B83;&#x53C8;&#x8981;&#x6839;&#x636E;&#x4E00;&#x4E2A;&#x53EB;CMakeLists.txt&#x6587;&#x4EF6;&#xFF08;&#x5B66;&#x540D;&#xFF1A;&#x7EC4;&#x6001;&#x6863;&#xFF09;&#x53BB;&#x751F;&#x6210;makefile&#x3002; </p>
+<h3 id="using-cmake-for-projects-using-opencv-in-windows">Using cmake for projects using opencv in Windows</h3>
+<p><a href="https://www.learnopencv.com/install-opencv3-on-windows/" target="_blank"></a></p>
+<p><a href="https://answers.opencv.org/question/200302/error-using-cmake-on-windows-with-visual-studio-2017-and-opencv-343/" target="_blank">Issues related to x86 and x64</a></p>
+<h3 id="some-blogs-to-read-about-creating-cmake-files">Some blogs to read about creating cmake files</h3>
+<p><a href="https://cliutils.gitlab.io/modern-cmake/chapters/basics.html" target="_blank">https://cliutils.gitlab.io/modern-cmake/chapters/basics.html</a></p>
+<p><a href="https://blog.csdn.net/gg\_18826075157/article/details/72780010" target="_blank">https://blog.csdn.net/gg_18826075157/article/details/72780010</a></p>
+<p>&#x200B;<a href="https://preshing.com/20170511/how-to-build-a-cmake-based-project/" target="_blank">https://preshing.com/20170511/how-to-build-a-cmake-based-project/</a></p>
+<p><a href="https://blog.csdn.net/whahu1989/article/details/82078563" target="_blank">https://blog.csdn.net/whahu1989/article/details/82078563</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/97369704" target="_blank">find_package</a> command</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="eigen.html" class="navigation navigation-prev " aria-label="Previous page: Eigen">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="compile-link.html" class="navigation navigation-next " aria-label="Next page: Compile, Link">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"description":"source: https://blog.csdn.net/hblhly/java/article/details/80740493 https://blog.csdn.net/FX677588/java/article/details/53159019","title":"gcc, g++, make, cmake","level":"1.4.5","depth":2,"next":{"title":"Compile, Link","level":"1.4.6","depth":2,"path":"cpp/compile-link.md","ref":"cpp/compile-link.md","articles":[]},"previous":{"title":"Eigen","level":"1.4.4","depth":2,"path":"cpp/eigen.md","ref":"cpp/eigen.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"cpp/gcc-g++-make-cmake.md","mtime":"2021-05-09T19:52:01.150Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-09T19:55:58.103Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

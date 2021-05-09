@@ -4,9 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Algorithms · GitBook</title>
+        <title>Basics · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="">
+        <meta name="description" content="Useful python tricks">
         <meta name="generator" content="GitBook 3.2.3">
         
         
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="alg2.html" />
+    <link rel="next" href="taichi.html" />
     
     
-    <link rel="prev" href="std.html" />
+    <link rel="prev" href="./" />
     
 
     </head>
@@ -128,9 +128,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="./">
+        <li class="chapter " data-level="1.4" data-path="../cpp/">
             
-                <a href="./">
+                <a href="../cpp/">
             
                     
                     C++ Notes
@@ -142,9 +142,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="std.html">
+        <li class="chapter " data-level="1.4.1" data-path="../cpp/std.html">
             
-                <a href="std.html">
+                <a href="../cpp/std.html">
             
                     
                     Standard Library
@@ -155,9 +155,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4.2" data-path="alg.html">
+        <li class="chapter " data-level="1.4.2" data-path="../cpp/alg.html">
             
-                <a href="alg.html">
+                <a href="../cpp/alg.html">
             
                     
                     Algorithms
@@ -168,9 +168,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.3" data-path="alg2.html">
+        <li class="chapter " data-level="1.4.3" data-path="../cpp/alg2.html">
             
-                <a href="alg2.html">
+                <a href="../cpp/alg2.html">
             
                     
                     Algorithms2
@@ -181,9 +181,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.4" data-path="eigen.html">
+        <li class="chapter " data-level="1.4.4" data-path="../cpp/eigen.html">
             
-                <a href="eigen.html">
+                <a href="../cpp/eigen.html">
             
                     
                     Eigen
@@ -194,9 +194,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.5" data-path="gcc-g++-make-cmake.html">
+        <li class="chapter " data-level="1.4.5" data-path="../cpp/gcc-g++-make-cmake.html">
             
-                <a href="gcc-g++-make-cmake.html">
+                <a href="../cpp/gcc-g++-make-cmake.html">
             
                     
                     gcc, g++, make, cmake
@@ -207,9 +207,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.6" data-path="compile-link.html">
+        <li class="chapter " data-level="1.4.6" data-path="../cpp/compile-link.html">
             
-                <a href="compile-link.html">
+                <a href="../cpp/compile-link.html">
             
                     
                     Compile, Link
@@ -225,9 +225,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="../python-notes/">
+        <li class="chapter " data-level="1.5" data-path="./">
             
-                <a href="../python-notes/">
+                <a href="./">
             
                     
                     Python Notes
@@ -239,9 +239,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.5.1" data-path="../python-notes/basics.html">
+        <li class="chapter active" data-level="1.5.1" data-path="basics.html">
             
-                <a href="../python-notes/basics.html">
+                <a href="basics.html">
             
                     
                     Basics
@@ -252,9 +252,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.2" data-path="../python-notes/taichi.html">
+        <li class="chapter " data-level="1.5.2" data-path="taichi.html">
             
-                <a href="../python-notes/taichi.html">
+                <a href="taichi.html">
             
                     
                     Taichi
@@ -358,7 +358,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Algorithms</a>
+        <a href=".." >Basics</a>
     </h1>
 </div>
 
@@ -373,7 +373,95 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="algorithms">Algorithms</h1>
+                                <h1 id="basics">Basics</h1>
+<h3 id="args-and-kwargs">*args and **kwargs</h3>
+<p>These two are used in function definition where the number of variables input by users is unknown. <strong>*args</strong> for non-keyworded and <strong>**kwargs</strong> for key-worded. <em>Note: the naming <strong>args</strong> and <strong>kwargs</strong> are not necessary but under convention.</em> </p>
+<pre><code class="lang-python">def adder(*args):
+    print(args)
+    print(type(args))
+    return(sum(args))
+
+
+&gt; adder(1,2,3)
+output: 
+&gt; (1 2 3)
+&gt; &lt;class &apos;tuple&apos;&gt;
+&gt; 6
+
+def adder(**kwargs):
+    print(kwargs)
+    print(type(kwargs))
+    for key,value in kwargs.items():
+        print(&apos;{}=={}&apos;.format(key,value))
+    return(sum(kwargs.values()))
+
+&gt; adder(num1=1,num2=2,num3=3)
+output:
+&gt; {&apos;num1&apos;: 1, &apos;num2&apos;: 2, &apos;num3&apos;: 3}
+&gt; &lt;class &apos;dict&apos;&gt;
+&gt; num1==1
+&gt; num2==2
+&gt; num3==3
+&gt; 6
+</code></pre>
+<h3 id="decorator">Decorator</h3>
+<p><a href="https://wiki.jikexueyuan.com/project/interpy-zh/decorators/your\_first\_decorator.html" target="_blank">https://wiki.jikexueyuan.com/project/interpy-zh/decorators/your_first_decorator.html</a></p>
+<p>todo: write my own version of note after really using the decorator</p>
+<h3 id="variable-scope-between-different-scripts">Variable scope between different scripts</h3>
+<p>If you define a variable in one script, we can access it by import this variable from that script. But when we alter the value of that varible, it actually creates a new variable in the current script without changing the original one. </p>
+<pre><code class="lang-python">% file one: config.py - create the variable
+a = <span class="hljs-number">10</span>
+b = {<span class="hljs-string">&apos;para1&apos;</span>: <span class="hljs-number">20</span>,<span class="hljs-string">&apos;para2&apos;</span>: <span class="hljs-number">30</span>}
+</code></pre>
+<pre><code class="lang-python">% file two: myclass.py - access the variable
+
+<span class="hljs-keyword">from</span> config <span class="hljs-keyword">import</span> a, b
+
+aa = a
+bb2 = b[<span class="hljs-string">&apos;para2&apos;</span>]
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Trainer</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, para1)</span>:</span>
+        self.para1 = para1
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">func</span><span class="hljs-params">(self)</span>:</span>
+        print(self.para1, id(self.para1))
+        print(aa, id(aa))
+        print(bb2, id(bb2))
+</code></pre>
+<pre><code class="lang-python">% file three: main.py
+
+<span class="hljs-keyword">from</span> config <span class="hljs-keyword">import</span> a, b
+<span class="hljs-keyword">from</span> myclass <span class="hljs-keyword">import</span> Trainer
+
+print(a, id(a))
+print(b, id(b))
+print(b[<span class="hljs-string">&apos;para2&apos;</span>], id(b[<span class="hljs-string">&apos;para2&apos;</span>]))
+
+t = Trainer(b[<span class="hljs-string">&apos;para1&apos;</span>])
+t.func()
+
+print(<span class="hljs-string">&apos;after editting in main.py&apos;</span>)
+b[<span class="hljs-string">&apos;para2&apos;</span>] = <span class="hljs-number">40</span>
+print(b, id(b))
+print(b[<span class="hljs-string">&apos;para2&apos;</span>], id(b[<span class="hljs-string">&apos;para2&apos;</span>]))
+
+t.func()
+</code></pre>
+<pre><code class="lang-bash">$ python main.py
+
+(10, 140577287984896) // a <span class="hljs-keyword">in</span> main.py scope
+({<span class="hljs-string">&apos;para2&apos;</span>: 30, <span class="hljs-string">&apos;para1&apos;</span>: 20}, 4315181976)
+(30, 140577287984416) // para2 <span class="hljs-keyword">in</span> main.py scope
+(20, 140577287984656)
+(10, 140577287984896) // a <span class="hljs-keyword">in</span> config.py scope
+(30, 140577287984416) // para2 <span class="hljs-keyword">in</span> config.py scope
+after editting <span class="hljs-keyword">in</span> main.py
+({<span class="hljs-string">&apos;para2&apos;</span>: 40, <span class="hljs-string">&apos;para1&apos;</span>: 20}, 4315181976)
+(40, 140577287986152) // para2 <span class="hljs-keyword">in</span> main.py scope after edit
+(20, 140577287984656)
+(10, 140577287984896) 
+(30, 140577287984416) // para2 <span class="hljs-keyword">in</span> edit.py scope after edit
+</code></pre>
 
                                 
                                 </section>
@@ -401,12 +489,12 @@
 
             
                 
-                <a href="std.html" class="navigation navigation-prev " aria-label="Previous page: Standard Library">
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Python Notes">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="alg2.html" class="navigation navigation-next " aria-label="Next page: Algorithms2">
+                <a href="taichi.html" class="navigation navigation-next " aria-label="Next page: Taichi">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -417,7 +505,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Algorithms","level":"1.4.2","depth":2,"next":{"title":"Algorithms2","level":"1.4.3","depth":2,"path":"cpp/alg2.md","ref":"cpp/alg2.md","articles":[]},"previous":{"title":"Standard Library","level":"1.4.1","depth":2,"path":"cpp/std.md","ref":"cpp/std.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"cpp/alg.md","mtime":"2021-05-09T18:45:11.611Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-09T19:55:58.103Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"Useful python tricks","title":"Basics","level":"1.5.1","depth":2,"next":{"title":"Taichi","level":"1.5.2","depth":2,"path":"python-notes/taichi.md","ref":"python-notes/taichi.md","articles":[]},"previous":{"title":"Python Notes","level":"1.5","depth":1,"path":"python-notes/README.md","ref":"python-notes/README.md","articles":[{"title":"Basics","level":"1.5.1","depth":2,"path":"python-notes/basics.md","ref":"python-notes/basics.md","articles":[]},{"title":"Taichi","level":"1.5.2","depth":2,"path":"python-notes/taichi.md","ref":"python-notes/taichi.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python-notes/basics.md","mtime":"2021-05-09T19:55:54.030Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-09T19:55:58.103Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
