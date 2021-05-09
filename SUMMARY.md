@@ -10,4 +10,6 @@
   * [Eigen](cpp/eigen.md)
   * [gcc, g++, make, cmake](cpp/gcc-g++-make-cmake.md)
   * [Compile, Link](cpp/compile-link.md)
+* [Python Notes](python-notes/README.md)
+  * [Basics](python-notes/basics.md)
 
