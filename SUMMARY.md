@@ -8,4 +8,6 @@
   * [Algorithms](cpp/alg.md)
   * [Algorithms2](cpp/alg2.md)
   * [Eigen](cpp/eigen.md)
+  * [gcc, g++, make, cmake](cpp/gcc-g++-make-cmake.md)
+  * [Compile, Link](cpp/compile-link.md)
 
