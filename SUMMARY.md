@@ -12,4 +12,6 @@
   * [Compile, Link](cpp/compile-link.md)
 * [Python Notes](python-notes/README.md)
   * [Basics](python-notes/basics.md)
+  * [Taichi](python-notes/taichi.md)
+* [Chords](chords.md)
 
