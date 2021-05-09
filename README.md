@@ -1,4 +1,6 @@
 # Introduction
 
-What if I wrote on Gitbook? Will it be commit to Github?
+What if I write on Gitbook? Will it be committed to Github?
+
+Yes!
 
