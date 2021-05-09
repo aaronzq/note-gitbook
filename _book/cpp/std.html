@@ -374,6 +374,499 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="standard-library">Standard Library</h1>
+<h2 id="standard-stream-input-and-output">Standard stream input and output</h2>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span>{
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;How many hours did you work?&quot;</span>;
+    <span class="hljs-keyword">double</span> hoursWorked;
+    <span class="hljs-built_in">cin</span> &gt;&gt; hoursWorked;
+
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;How much did you get paid per hour&quot;</span>;
+    <span class="hljs-keyword">double</span> payPerHour;
+    <span class="hljs-built_in">cin</span> &gt;&gt; payPerHour;
+
+    <span class="hljs-keyword">double</span> amtPaid = hoursWorked * payPerHour;
+    <span class="hljs-built_in">cout</span>.setf(ios::fixed);
+    <span class="hljs-built_in">cout</span>.precision(<span class="hljs-number">2</span>);
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Charged &quot;</span> &lt;&lt; <span class="hljs-number">0.1</span>*amtPaid &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+}
+</code></pre>
+<p> <code>std::cin &gt;&gt; v</code> discards any whitespace in the standard input stream, then reads from the standard input into variable <code>v</code> It returns <code>std::cin</code> , which has type <code>istream</code> , in order to allow chained input operations.<br><code>std::cout &lt;&lt; v</code> returns <code>std::cout</code> with type <code>ostream</code> .</p>
+<h2 id="pass-the-variable-as-reference">Pass the variable as reference</h2>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span>
+
+
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">polarToCartesian</span><span class="hljs-params">(<span class="hljs-keyword">double</span> rho, <span class="hljs-keyword">double</span> theta, <span class="hljs-keyword">double</span>&amp; x, <span class="hljs-keyword">double</span>&amp; y)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span>{
+
+    <span class="hljs-keyword">double</span> x;
+    <span class="hljs-keyword">double</span> y;
+
+    <span class="hljs-keyword">double</span> radius = <span class="hljs-number">10</span>;
+    <span class="hljs-keyword">double</span> angle = <span class="hljs-number">3.1415926</span>/<span class="hljs-number">4</span>;
+
+    polarToCartesian(radius, angle, x, y);
+
+    <span class="hljs-built_in">cout</span> &lt;&lt; x &lt;&lt; <span class="hljs-built_in">endl</span>;
+    <span class="hljs-built_in">cout</span> &lt;&lt; y &lt;&lt; <span class="hljs-built_in">endl</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">polarToCartesian</span><span class="hljs-params">(<span class="hljs-keyword">double</span> rho, <span class="hljs-keyword">double</span> theta, <span class="hljs-keyword">double</span>&amp; x, <span class="hljs-keyword">double</span>&amp; y)</span>
+</span>{
+    <span class="hljs-comment">// double x: here the variable will be passed by </span>
+    <span class="hljs-comment">//      value, so it wont change the x in the main routine</span>
+    <span class="hljs-comment">// double&amp; x: here the &amp; means: pass the variable </span>
+    <span class="hljs-comment">//      by reference</span>
+    x = <span class="hljs-function">rho * <span class="hljs-title">cos</span><span class="hljs-params">(theta)</span></span>;
+    y = <span class="hljs-function">rho * <span class="hljs-title">sin</span><span class="hljs-params">(theta)</span></span>;
+}
+</code></pre>
+<p>Often used when you need to return more than 1 variables in the function, but C++ doesn&apos;t allow you to do that. So you can pass the references of the variable you want to edit. </p>
+<p>Define the parameter in the function as <code>double&amp; x</code> and x will be a new name for any external variable you pass in. </p>
+<p> <strong>Array</strong> is passed to function as reference intrinsically.  <strong>Pointer</strong> is not(<a href="https://www.geeksforgeeks.org/passing-reference-to-a-pointer-in-c/" target="_blank">https://www.geeksforgeeks.org/passing-reference-to-a-pointer-in-c/</a>). But using the pointer you can edit the value in that memory position. </p>
+<h2 id="array-1d">Array 1D</h2>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span>
+
+
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-built_in">string</span> colors[<span class="hljs-number">4</span>] = {<span class="hljs-string">&quot;Red&quot;</span>, <span class="hljs-string">&quot;Orange&quot;</span>, <span class="hljs-string">&quot;Yellow&quot;</span>, <span class="hljs-string">&quot;Blue&quot;</span>};
+<span class="hljs-comment">// Perfect initialization.</span>
+
+<span class="hljs-built_in">string</span> colors[<span class="hljs-number">4</span>] = {<span class="hljs-string">&quot;Red&quot;</span>, <span class="hljs-string">&quot;Orange&quot;</span>, <span class="hljs-string">&quot;Yellow&quot;</span>};
+<span class="hljs-comment">// It compiles. One element undefined.</span>
+<span class="hljs-built_in">cout</span> &lt;&lt; colors[<span class="hljs-number">3</span>] &lt;&lt; <span class="hljs-built_in">endl</span>; <span class="hljs-comment">// You can do that, but undefined behavior </span>
+<span class="hljs-built_in">cout</span> &lt;&lt; colors[<span class="hljs-number">4</span>] &lt;&lt; <span class="hljs-built_in">endl</span>; <span class="hljs-comment">// You can even do that, but undefined behavior</span>
+
+
+<span class="hljs-built_in">string</span> colors[<span class="hljs-number">4</span>] = {<span class="hljs-string">&quot;Red&quot;</span>, <span class="hljs-string">&quot;Orange&quot;</span>, <span class="hljs-string">&quot;Yellow&quot;</span>, <span class="hljs-string">&quot;Orange&quot;</span>, <span class="hljs-string">&quot;Yellow&quot;</span>}; 
+<span class="hljs-comment">// Compile error, too many initializer</span>
+
+
+
+<span class="hljs-keyword">double</span> scores[<span class="hljs-number">2</span>] = {<span class="hljs-number">2</span>, <span class="hljs-number">9</span>};
+</code></pre>
+<p>Note that number of elements in the array has to be known in compilation time, which means you cannot let the user input that number.</p>
+<pre><code class="lang-cpp"><span class="hljs-comment">//Something about static_cast&lt; &gt;</span>
+
+<span class="hljs-keyword">int</span> nScores = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">int</span> total = <span class="hljs-number">0</span>;
+
+<span class="hljs-comment">// code here to change the nScores and total</span>
+
+<span class="hljs-keyword">double</span> mean = <span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">double</span>&gt;(total) / nScores;
+<span class="hljs-comment">// here staric_cast&lt;double&gt; create a temporary variable</span>
+<span class="hljs-comment">// that is double</span>
+
+<span class="hljs-keyword">double</span> mean = (<span class="hljs-keyword">double</span>)total / nScores; <span class="hljs-comment">// You cam do that but not recommended in C++</span>
+</code></pre>
+<pre><code class="lang-cpp"><span class="hljs-comment">// Now we add array to the program</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span>
+
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> MAX_NUMBER_OF_SCORES = <span class="hljs-number">10000</span>;
+<span class="hljs-keyword">int</span> scores[MAX_NUMBER_OF_SCORES]; <span class="hljs-comment">// create a array that&apos;s large enough to hold everything</span>
+<span class="hljs-comment">// but you don&apos;t necessarily use all of them</span>
+<span class="hljs-keyword">int</span> nScores = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">int</span> total = <span class="hljs-number">0</span>;
+<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Enter the scores (negative to quit):&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+<span class="hljs-keyword">for</span> (;;)
+{
+    <span class="hljs-keyword">int</span> s;
+    <span class="hljs-built_in">cin</span> &gt;&gt; s;
+    <span class="hljs-keyword">if</span> (s &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">if</span> (nScores == MAX_NUMBER_OF_SCORES) 
+    {
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;I can only handle &quot;</span> &lt;&lt; MAX_NUMBER_OF_SCORES &lt;&lt; <span class="hljs-string">&quot; scores!&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Continuing with just the first &quot;</span> &lt;&lt; MAX_NUMBER_OF_SCORES &lt;&lt; <span class="hljs-string">&quot; scores.&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+        <span class="hljs-keyword">break</span>;
+    }
+    total += s;
+    scores[nScores] = s;
+    nScores++;
+}
+<span class="hljs-keyword">if</span> (nScores == <span class="hljs-number">0</span>)
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;There were no scores, so no statistics.&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+<span class="hljs-keyword">else</span>
+{
+    <span class="hljs-keyword">double</span> mean = <span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">double</span>&gt;(total) / nScores;
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;The mean is &quot;</span> &lt;&lt; mean &lt;&lt; <span class="hljs-built_in">endl</span>;
+    <span class="hljs-keyword">double</span> sumOfSquare = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; nScores; k++)
+    {
+        <span class="hljs-keyword">double</span> diff = scores[k] - mean;
+        sumOfSquares += diff * diff;
+    }
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;The standard deviation is &quot;</span> &lt;&lt; <span class="hljs-built_in">sqrt</span>(sumOfSquares/nScores) &lt;&lt; <span class="hljs-built_in">endl</span>;
+}
+</code></pre>
+<pre><code class="lang-cpp"><span class="hljs-comment">//define a function that takes array</span>
+<span class="hljs-comment">//In C++, when you pass the array to a function, you don&apos;t copy the array, but</span>
+<span class="hljs-comment">//in a way similar to reference</span>
+<span class="hljs-comment">//In order not to change array, you can use const</span>
+<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">computeMean</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> a[], <span class="hljs-keyword">int</span> n)</span>
+</span>{
+    <span class="hljs-comment">// There is no way to figure out how big the array is from the a</span>
+    <span class="hljs-comment">// You have to pass in number n and trust the user </span>
+
+    <span class="hljs-comment">//a[5] = 12;  // it wont compile. You cannot modify </span>
+
+
+    <span class="hljs-keyword">if</span> (n &lt;= <span class="hljs-number">0</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span> t = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; n; k++ )
+    {
+        t += a[k]
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">double</span>&gt;(t) / n;
+
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setAll</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a[], <span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> value)</span>
+</span>{
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">1</span>; k &lt; n; k++)
+    {
+        a[k] = value;
+    }
+}
+</code></pre>
+<h2 id="array-2d">Array 2D</h2>
+<pre><code class="lang-cpp"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> NWEEKS = <span class="hljs-number">5</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> NDAYS = <span class="hljs-number">7</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">meanForADay</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> a[][NDAYS], <span class="hljs-keyword">int</span> nRows, <span class="hljs-keyword">int</span> dayNumber)</span></span>;
+<span class="hljs-comment">// When you pass a 2D array into the function, you leave the </span>
+<span class="hljs-comment">// first dimension but have to put in the 2nd dimension</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span>{
+    <span class="hljs-keyword">int</span> attendance[NWEEKS][NDAYS];
+    <span class="hljs-comment">//...</span>
+    <span class="hljs-keyword">double</span> meanWed = meanForADay(attendance, NWEEKS, <span class="hljs-number">2</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">meanForADay</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> a[][NDAYS], <span class="hljs-keyword">int</span> nRows, <span class="hljs-keyword">int</span> dayNumber)</span>
+</span>{
+    <span class="hljs-keyword">if</span> (nRows &lt;= <span class="hljs-number">0</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span> total = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> w = <span class="hljs-number">0</span>; w &lt; nRows; w++)
+    {
+        total += a[w][dayNumber];
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">double</span>&gt;(total) / nRows;
+}
+</code></pre>
+<h2 id="array-multi-d">Array Multi-D</h2>
+<pre><code class="lang-cpp"><span class="hljs-keyword">int</span> multiplexAttendance[<span class="hljs-number">16</span>][<span class="hljs-number">5</span>][<span class="hljs-number">7</span>];
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">int</span> b[][<span class="hljs-number">5</span>][<span class="hljs-number">7</span>],...)</span></span>;
+</code></pre>
+<h2 id="char-and-string-revisit-for-c-string-char-array">Char and String (revisit for C-string, char array)</h2>
+<pre><code class="lang-cpp">int k = 97;
+char c = &apos;a&apos;;  //Represented by 97 if ASCII it the encoding
+
+int k2 = &apos;a&apos;; //If ASCII is the encoding, k2 is 97
+char c2 = 97; //IF ASCII is the encoding, c2 is &apos;a&apos;
+
+k++;  // k is now 98
+c++;  // c = c + 1. If ASCII, c had 97 (&apos;a&apos;), c+1 is 98 (&apos;b&apos;)
+
+double d = 3.5;
+cout &lt;&lt; d; // calls the function for doubles; it writes &apos;3&apos; &apos;.&apos; &apos;5&apos;
+// if ASCII, this is 51 46 53
+cout &lt;&lt; k; // calls the function for ints; in writes &apos;9&apos; &apos;8&apos;
+// if ASCII, this is 57 56
+cout &lt;&lt; c; // calls the function for chars; it writes &apos;b&apos;
+// if ASCII, this is 98
+
+c == &apos;b&apos;; // we are comparing the encoding
+c &gt; &apos;a&apos;;
+
+string s1 = &quot;hello&quot;;
+string s2 = &quot;help&quot;;
+string s3 = &quot;helping&quot;;
+string s4 = &quot;hElp&quot;;
+
+s1 &lt; s2; //true because in l&apos;s encoding is smaller than p
+s2 &lt; s3; // true 
+s2 &lt; s4; //If ASCII, false because &apos;E&apos; &lt; &apos;e&apos;
+
+s1 &lt; &quot;help&quot;; //ture
+&apos;hello&apos; &lt; s2; // true
+&quot;hello&quot; &lt; &quot;help&quot;; // BAD IDEA!!! implementation-dependent behavior, because 
+// it won&apos;t necessary use the operator defined in string library
+</code></pre>
+<p>C++ is compatible with C. But C uses a different library for the string. How does C deal with string? </p>
+<pre><code class="lang-c">/*
+C string
+use array and &apos;\0&apos; to mark the ending of the string
+
+    0   1   2   3   4    5   6   7   8   9   
+t: &apos;H&apos; &apos;e&apos; &apos;l&apos; &apos;l&apos; &apos;o&apos; &apos;\0&apos;  .   .   .   .
+*/
+
+#include &lt;cstring&gt;  // defines strlen, strcpy, etc
+using namespace std;
+
+
+char t[10] = &quot;Hello&quot;;  //it will add &apos;\0&apos; at the end
+//make sure 10 is larger than your string length, while &apos;\0&apos; will occupy one position
+char s[100] = &quot;&quot;; //it will have a &apos;\0&apos;
+
+for (int k = 0; t[k] != &apos;\0&apos;; k++)
+    cout &lt;&lt; t[k] &lt;&lt; endl;
+
+cout &lt;&lt; t; //if t is a c-string, it will call a function to write the characters until &apos;\0&apos;
+cin.getline(s, 100) // read string (for c string) for maximum 100 character 
+
+cout &lt;&lt; strlen(t); // writes 5
+
+strcpy(s, t); // strcpy(destination, source); 
+// s = t; // Error! Won&apos;t compile, can&apos;t assign arrays
+
+strcat(s, &quot;!!!&quot;);  
+// s += &quot;!!!&quot;; // Error! won&apos;t compile -- no += for arrays
+
+if (strcmp(t,s) &lt; 0 )
+    ...
+            strcmp(a, b)
+             negative if a comes before b
+                 0    if a equals b
+             positive if a comes after b
+
+
+Is a equal to b?
+    Wrong:  if (strcmp(a, b))
+                ...
+    Right:  if (strcmp(a, b) == 0)
+                ...
+
+Does a come before b?
+    Wrong:  if (a &lt; b)
+                ...
+    Right:  if (strcmp(a, b) &lt; 0)
+                ...
+
+void makeUppercase(string&amp; s)
+{
+    // for string
+    for(int i = 0; i != s.size(); i++)
+    {
+        s[i] = toupper(s[i]);
+    }
+}            
+
+void makeUppercase(char s[])
+{
+    // for c string
+    for(int i = 0; s[i] != &apos;/0&apos;; i++)
+    {
+        s[i] = toupper(s[i]);
+    }    
+}
+</code></pre>
+<h2 id="pointer">Pointer</h2>
+<p>Const and pointer (<a href="https://www.learncpp.com/cpp-tutorial/610-pointers-and-const/" target="_blank">https://www.learncpp.com/cpp-tutorial/610-pointers-and-const/</a>)<br><code>const char *p</code> implies that the variable it points to is constant, but the pointer itself is not. So  <code>*p = new value</code> is illegal while  <code>p = p + 1</code> is okay.</p>
+<h2 id="class">Class</h2>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span>
+
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-keyword">class</span> Pet
+{
+<span class="hljs-keyword">public</span>:
+    Pet(<span class="hljs-built_in">string</span> nm, <span class="hljs-keyword">int</span> initialHealth); <span class="hljs-comment">// declaration of the constructor function</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">eat</span><span class="hljs-params">(<span class="hljs-keyword">int</span> amt)</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">play</span><span class="hljs-params">()</span></span>;
+    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">name</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>; <span class="hljs-comment">// &apos;const&apos; after () means this function will not change the input variables</span>
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">health</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">alive</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;    
+<span class="hljs-keyword">private</span>: <span class="hljs-comment">// private members cannot be accessed by external user</span>
+    <span class="hljs-built_in">string</span> n_name; 
+    <span class="hljs-keyword">int</span> m_health;
+
+};
+
+<span class="hljs-comment">// constructor for Pet to initialize</span>
+Pet::Pet(<span class="hljs-built_in">string</span> nm, <span class="hljs-keyword">int</span> initialHealth)
+{
+    n_name = nm;
+    m_health = initialHealth;
+}
+
+<span class="hljs-keyword">void</span> Pet::eat(<span class="hljs-keyword">int</span> amt)
+{
+    m_health += amt;
+}
+
+<span class="hljs-keyword">void</span> Pet::play()
+{
+    m_health--;
+}
+
+<span class="hljs-built_in">string</span> Pet::name() <span class="hljs-keyword">const</span>
+{
+    <span class="hljs-keyword">return</span> n_name;
+}
+
+<span class="hljs-keyword">int</span> Pet::health() <span class="hljs-keyword">const</span>
+{
+    <span class="hljs-keyword">return</span> m_health;
+}
+
+<span class="hljs-keyword">bool</span> Pet::alive() <span class="hljs-keyword">const</span>
+{
+    <span class="hljs-keyword">return</span> m_health &gt; <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">reportStatus</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Pet* p)</span>
+</span>{
+    <span class="hljs-built_in">cout</span> &lt;&lt; p-&gt;name() &lt;&lt; <span class="hljs-string">&quot; has health level &quot;</span> &lt;&lt; p-&gt;health();
+    <span class="hljs-keyword">if</span> (!p-&gt;alive())
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;, so has died&quot;</span>;
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">careFor</span><span class="hljs-params">(Pet* p, <span class="hljs-keyword">int</span> d)</span>
+</span>{
+    <span class="hljs-keyword">if</span> (!p-&gt;alive())
+    {
+        <span class="hljs-built_in">cout</span> &lt;&lt; p-&gt;name() &lt;&lt; <span class="hljs-string">&quot; is still dead&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+        <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-keyword">if</span> (d % <span class="hljs-number">3</span> == <span class="hljs-number">0</span>)
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;You forgot to feed &quot;</span> &lt;&lt; p-&gt;name() &lt;&lt; <span class="hljs-built_in">endl</span>;
+    <span class="hljs-keyword">else</span>
+    {
+        p-&gt;eat(<span class="hljs-number">1</span>); 
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;You fed &quot;</span> &lt;&lt; p-&gt;name() &lt;&lt; <span class="hljs-built_in">endl</span>;
+    }
+
+    p-&gt;play();
+    reportStatus(p);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span>{
+    Pet* myPets[<span class="hljs-number">2</span>];
+    myPets[<span class="hljs-number">0</span>] = <span class="hljs-keyword">new</span> Pet(<span class="hljs-string">&quot;Fluffy&quot;</span>, <span class="hljs-number">2</span>);
+    myPets[<span class="hljs-number">1</span>] = <span class="hljs-keyword">new</span> Pet(<span class="hljs-string">&quot;Frisky&quot;</span>, <span class="hljs-number">4</span>);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> day = <span class="hljs-number">1</span>; day &lt;= <span class="hljs-number">9</span>; day++)
+    {
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;====== Day &quot;</span> &lt;&lt; day &lt;&lt; <span class="hljs-built_in">endl</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; <span class="hljs-number">2</span>; k++)
+        {
+            careFor(myPets[k], day);
+        }
+
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;======&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+    }
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; <span class="hljs-number">2</span>; k++)
+    {
+        <span class="hljs-keyword">if</span> (myPets[k]-&gt;alive())
+            <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Animal Control has come to rescue &quot;</span> &lt;&lt; myPets[k]-&gt;name() &lt;&lt; <span class="hljs-built_in">endl</span>;
+        <span class="hljs-keyword">delete</span> myPets[k];
+    }
+
+}
+</code></pre>
+<h2 id="iterator">Iterator</h2>
+<p>what is an iterator? What does this concept refer to?<a href="http://www.cplusplus.com/reference/iterator/#:~:text=Iterator%20definitions,dereference%20%28%20*%20%29%20operators%29." target="_blank">http://www.cplusplus.com/reference/iterator/#:~:text=Iterator%20definitions,dereference%20(%20*%20)%20operators).</a></p>
+<p>An iterator is any object that, pointing to some element in a range of elements (such as an array or a container), has the ability to iterate through the elements of that range using a set of operators (with at least the increment (<code>++</code>) and dereference (<code>*</code>) operators).  </p>
+<p>The most obvious form of iterator is a pointer: A pointer can point to elements in an array, and can iterate through them using the increment operator (<code>++</code>). But other kinds of iterators are possible. For example, each container type (such as a list) has a specific iterator type designed to iterate through its elements.</p>
+<p>Similar to pointer, a &apos;constant iterator&apos; means the object this iterator points to cannot be modified.</p>
+<h2 id="vector-c-stl">Vector (C++ STL)</h2>
+<p><a href="https://www.geeksforgeeks.org/vector-in-cpp-stl/" target="_blank">https://www.geeksforgeeks.org/vector-in-cpp-stl/</a></p>
+<p>In c++ standard libirary there&apos;s &lt;vector&gt; which defines vector. It&apos;s same as dynamic arrays with the ability to resize itself automatically when an element is inserted or deleted, with their storage being handled automatically by the container. </p>
+<h2 id="enum">Enum</h2>
+<p>Enumeration type. <a href="https://en.cppreference.com/w/cpp/language/enum" target="_blank">https://en.cppreference.com/w/cpp/language/enum</a></p>
+<h4 id="unscoped-enumeration">Unscoped enumeration</h4>
+<pre><code class="lang-cpp"><span class="hljs-comment">// syntax</span>
+<span class="hljs-keyword">enum</span> name { enumerator = <span class="hljs-keyword">constexpr</span> , enumerator = <span class="hljs-keyword">constexpr</span> , ... }
+<span class="hljs-comment">// underlying type is an implementation-defined integral type</span>
+<span class="hljs-comment">// int or unsigned int</span>
+
+
+<span class="hljs-keyword">enum</span> name : type { enumerator = <span class="hljs-keyword">constexpr</span> , enumerator = <span class="hljs-keyword">constexpr</span> , ... }    
+
+
+<span class="hljs-comment">//e.g.</span>
+
+<span class="hljs-keyword">enum</span> Buffer { Color = <span class="hljs-number">1</span>, Depth = <span class="hljs-number">2</span>};
+</code></pre>
+<h4 id="scoped-enumeration">Scoped enumeration</h4>
+<pre><code class="lang-cpp"><span class="hljs-comment">// syntax</span>
+<span class="hljs-keyword">enum</span> <span class="hljs-keyword">struct</span>|<span class="hljs-keyword">class</span> name { enumerator = <span class="hljs-keyword">constexpr</span> , enumerator = <span class="hljs-keyword">constexpr</span> , ... }
+
+<span class="hljs-keyword">enum</span> <span class="hljs-keyword">struct</span>|<span class="hljs-keyword">class</span> name : type { enumerator = <span class="hljs-keyword">constexpr</span> , enumerator = <span class="hljs-keyword">constexpr</span> , ... }    
+
+
+<span class="hljs-comment">//e.g.</span>
+
+<span class="hljs-keyword">enum</span> <span class="hljs-keyword">class</span> Buffer
+{
+    Color = <span class="hljs-number">1</span>,
+    Depth = <span class="hljs-number">2</span>
+};
+</code></pre>
+<h2 id="argc-and-argv">argc and argv[]</h2>
+<p>To run program in command line and to give arguments.<br><a href="https://www.geeksforgeeks.org/command-line-arguments-in-c-cpp/" target="_blank">https://www.geeksforgeeks.org/command-line-arguments-in-c-cpp/</a></p>
+<pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span>
+</span>{
+
+}
+
+<span class="hljs-comment">// or </span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> **argv)</span>
+</span>{
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;You have entered &quot;</span> &lt;&lt; argc 
+         &lt;&lt; <span class="hljs-string">&quot; arguments:&quot;</span> &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>; 
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; argc; ++i) 
+        <span class="hljs-built_in">cout</span> &lt;&lt; argv[i] &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>; 
+
+
+    <span class="hljs-keyword">float</span> arg1;
+    <span class="hljs-keyword">int</span> arg2;
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> arg3; 
+    <span class="hljs-keyword">if</span> (argc &gt;= <span class="hljs-number">4</span>)
+    {
+        arg1 = <span class="hljs-built_in">std</span>::stof(argv[<span class="hljs-number">1</span>]);
+        arg2 = <span class="hljs-built_in">std</span>::stoi(argv[<span class="hljs-number">2</span>]);
+        arg3 = <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>(argv[<span class="hljs-number">3</span>]);
+    }
+    <span class="hljs-keyword">else</span>
+    {
+        <span class="hljs-comment">// return 0;</span>
+    }
+
+
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; 
+}
+
+<span class="hljs-comment">// in cmd</span>
+<span class="hljs-comment">// ./xxx var1 var2 var3</span>
+</code></pre>
+<p><code>argc</code> : int, number of arguments input in the cmd. Note that the first argument will always be the executable filename.<br><code>argv</code> : double pointer to char, a array of cstrings. Note thet <code>argv[0]</code> will be a string containing the executable filename. </p>
+<p>In cstring, a char array is used for a single string. So for multiple variables (multiple strings), we need a double pointer. </p>
 
                                 
                                 </section>
@@ -417,7 +910,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Standard Library","level":"1.4.1","depth":2,"next":{"title":"Algorithms","level":"1.4.2","depth":2,"path":"cpp/alg.md","ref":"cpp/alg.md","articles":[]},"previous":{"title":"C++ Notes","level":"1.4","depth":1,"path":"cpp/README.md","ref":"cpp/README.md","articles":[{"title":"Standard Library","level":"1.4.1","depth":2,"path":"cpp/std.md","ref":"cpp/std.md","articles":[]},{"title":"Algorithms","level":"1.4.2","depth":2,"path":"cpp/alg.md","ref":"cpp/alg.md","articles":[]},{"title":"Algorithms2","level":"1.4.3","depth":2,"path":"cpp/alg2.md","ref":"cpp/alg2.md","articles":[]},{"title":"Eigen","level":"1.4.4","depth":2,"path":"cpp/eigen.md","ref":"cpp/eigen.md","articles":[]},{"title":"gcc, g++, make, cmake","level":"1.4.5","depth":2,"path":"cpp/gcc-g++-make-cmake.md","ref":"cpp/gcc-g++-make-cmake.md","articles":[]},{"title":"Compile, Link","level":"1.4.6","depth":2,"path":"cpp/compile-link.md","ref":"cpp/compile-link.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"cpp/std.md","mtime":"2021-05-09T19:53:53.219Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-09T19:55:58.103Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Standard Library","level":"1.4.1","depth":2,"next":{"title":"Algorithms","level":"1.4.2","depth":2,"path":"cpp/alg.md","ref":"cpp/alg.md","articles":[]},"previous":{"title":"C++ Notes","level":"1.4","depth":1,"path":"cpp/README.md","ref":"cpp/README.md","articles":[{"title":"Standard Library","level":"1.4.1","depth":2,"path":"cpp/std.md","ref":"cpp/std.md","articles":[]},{"title":"Algorithms","level":"1.4.2","depth":2,"path":"cpp/alg.md","ref":"cpp/alg.md","articles":[]},{"title":"Algorithms2","level":"1.4.3","depth":2,"path":"cpp/alg2.md","ref":"cpp/alg2.md","articles":[]},{"title":"Eigen","level":"1.4.4","depth":2,"path":"cpp/eigen.md","ref":"cpp/eigen.md","articles":[]},{"title":"gcc, g++, make, cmake","level":"1.4.5","depth":2,"path":"cpp/gcc-g++-make-cmake.md","ref":"cpp/gcc-g++-make-cmake.md","articles":[]},{"title":"Compile, Link","level":"1.4.6","depth":2,"path":"cpp/compile-link.md","ref":"cpp/compile-link.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"cpp/std.md","mtime":"2021-05-09T19:59:27.143Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-09T19:59:45.079Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
