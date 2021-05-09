@@ -13,5 +13,8 @@
 * [Python Notes](python-notes/README.md)
   * [Basics](python-notes/basics.md)
   * [Taichi](python-notes/taichi.md)
-* [Chords](chords.md)
+* [Gibberish](gibberish/README.md)
+  * [Shadowsocks on Qcloud](gibberish/shadowsocks-on-qcloud.md)
+  * [Chords](gibberish/chords.md)
+  * [Internet protocal](gibberish/internet-protocal.md)
 
