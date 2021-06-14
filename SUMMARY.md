@@ -17,4 +17,5 @@
   * [Shadowsocks on Qcloud](gibberish/shadowsocks-on-qcloud.md)
   * [Chords](gibberish/chords.md)
   * [Internet protocal](gibberish/internet-protocal.md)
+  * [PR projects](gibberish/PR-projects.md)
 
