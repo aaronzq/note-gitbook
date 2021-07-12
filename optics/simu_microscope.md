@@ -12,7 +12,7 @@ $$ = \frac{exp(ikz_1 )}{i\lambda z_1}exp(\frac{ik}{2z_1}(x_2^2+y_2^2)\mathscr{F}
 Due to the existence of $exp(\frac{ik}{2z_1}(x_1^2+y_1^2)$ in the fourier transform, the diffraction pattern is dependent on the propogation distance. There are ways to numerically compute the pattern:
 
 1. Dumb calculation by hand-written integral using the formula
-```
+```matlab
 scale = 16;
 dx2 = lambda*fmla/dx1/fovN*scale;
 x2space = dx2 * [ ceil(-fovN/scale/2):ceil(fovN/scale/2)-1 ];
@@ -52,7 +52,7 @@ Discrete sampling of the source field, sampling of the transfer function, and th
 - $ dx >= \frac{\lambda z}{L}$, $L$ is the length of the array. This ensure the adequate sampling of the transfer function H.
 **Note that the result is the same whether a single TF propagation or a sequence of shorter TF propagations is used. This is because a succession of TF propagations is the same as applying the product of the transfer functions to the initial field.**
 
-```
+```matlab
 function [f2, dx2, x2] = fresnelTF2d(f1, dx1, z, lambda)
 % assuming dx1=dy1, Nx=Ny
 
@@ -92,7 +92,7 @@ Similar to FT Propagator, in order to suppress artifacts:
 **Note that the second creterion is exactly the opposite to FT Propagator, which indicates compared to FT Propagator, IR Propagator is more suitable in long distace Fresnel propagation.**
 
 
-```
+```matlab
 function [f2, dx2, x2] = fresnelIR2d(f1, dx1, z, lambda)
 % assuming dx1=dy1, Nx=Ny
 
@@ -123,7 +123,7 @@ $$E_2 (x_2 ,y_2 ) = \frac{exp(ikz_1 )}{i\lambda z_1}exp(\frac{ik}{2z_1}(x_2^2+y_
 
 1. Fourier transform
 
-```
+```matlab
 function [f2, dx2, x2] = fraunhofer2d(f1, dx1, z, lambda)
 % assuming dx1=dy1, Nx=Ny
 
@@ -153,15 +153,114 @@ Take extra care of FFT and iFFT in MATLAB because their coordinate system is def
 *For a 2D N x N matrix, on each axis, (0, N/2) is the positive half axis and (N/2+1, N) is the negative half axis.*
 
 To compute the frequency domain of a 2D image: `img_fft = fft2( fftshift(img));`
+
 To compute the frequency domain of a 2D image and visualize it in original image coordinate: `img_fft = ifftshift(fft2( fftshift(img)));`
+
 To compute the space domain of an un-shifted result of the 2D image fft: `img_2 = ifft2(fft2( fftshift(img)));`
+
 To compute the space domain of an un-shifted result of the 2D image fft and visualize it in original image coordinate: `img_2 = ifftshift(ifft2(fft2(fftshift(img)));`
+
 To compute the space domain of a shifted result of the 2D image fft: `img_2 = ifft2(fftshift(ifftshift(fft2( fftshift(img)))));`
+
 To compute the space domain of a shifted result of the 2D image fft and visualize it in original image coordinate: `img_2 = ifftshift(ifft2(fftshift(ifftshift(fft2(fftshift(img))))));`
+
 ## Compute the PSF of the microscope
 
 ### Debye integral (gold standard)
+```matlab
+%% calculate PSF through debye integral
 
+% objective
+NA = 0.5;
+fobj = 45e-3; % focal length of objective, mm
+
+% tubelens
+ftbl = 90e-3; % focal length of the tubelens, mm
+M = ftbl / fobj;
+% Question1: does any focal length of the tubelens work? is the total
+% magnification simply the ftbl/fobj ?
+
+% define the image space
+pixelsize = 1e-06 ;%6.5e-6; 
+imgWidth = 512;
+x1space = pixelsize*[ceil(-imgWidth/2):1:ceil(imgWidth/2)]; 
+x2space = x1space;
+sampleNum = length(x1space);
+
+% define the object space
+p1 = 0e-6;
+p2 = 0e-6;
+% p3 = -100e-6; % point at (0,0,0um)
+p3 = 1e-6*linspace(-150,150,15);
+
+lambda = 520e-9; % wavelength: 520nm
+n = 1;
+
+for p = 1:length(p3)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+centerPT = ceil(length(x1space)/2);
+halfWidth = imgWidth/2; % dont compute the entire image space but only -halfWidth:halfWidth
+centerArea = (  max((centerPT - halfWidth),1)   :   min((centerPT + halfWidth),length(x1space))     );
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+k = 2*pi*n/lambda;
+alpha = asin(NA/n);
+x1length = length(x1space);
+x2length = length(x2space);
+zeroline = zeros(1, length(x2space) );
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
+pattern = zeros(x1length, x2length);
+parfor a=centerArea(1):centerPT
+    patternLine = zeroline;  % create variable patternLine to support multi-threading 
+    for b=a:centerPT   % only compute the 45 deg sector of the image
+        x1 = x1space(a);
+        x2 = x2space(b);          
+        xL2normsq = (((x1+M*p1)^2+(x2+M*p2)^2)^0.5)/M;        
+        
+        v = k*xL2normsq*sin(alpha);    
+        u = 4*k*(p3(p)*1)*(sin(alpha/2)^2);
+        Koi = M/((fobj*lambda)^2)*exp(-1i*u/(4*(sin(alpha/2)^2)));
+        intgrand = @(theta) (sqrt(cos(theta))) .* (1+cos(theta))  .*  (exp((1i*u/2)* (sin(theta/2).^2) / (sin(alpha/2)^2)))  .*  (besselj(0, sin(theta)/sin(alpha)*v))  .*  (sin(theta));
+        % here I refered to Changliang's paper and corrected the sign of the
+        % exp((1i*u/2) from exp((-1i*u/2)
+        I0 = integral(@(theta)intgrand(theta),0,alpha);  
+                
+        patternLine(1,b) =  Koi*I0;
+    end
+    pattern(a,:) = patternLine;    
+end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+patternA = pattern( (1:centerPT), (1:centerPT) );
+patternAt = fliplr(patternA);
+
+pattern3D = zeros(size(pattern,1), size(pattern,2), 4);
+pattern3D(:,:,1) = pattern;
+pattern3D( (1:centerPT), (centerPT:end),1 ) = patternAt;
+pattern3D(:,:,2) = rot90( pattern3D(:,:,1) , -1);
+pattern3D(:,:,3) = rot90( pattern3D(:,:,1) , -2);
+pattern3D(:,:,4) = rot90( pattern3D(:,:,1) , -3);
+
+pattern = max(pattern3D,[],3);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% figure;mesh(abs(pattern).^2);
+% PSF = (abs(pattern)).^2;
+% PSF = PSF./max(max(PSF));
+% % figure(6);
+% % imshow(PSF);
+% imwrite(uint16(PSF.*65535),'./PSF_debye/PSF_debye.tif');
+% 
+PSF = (abs(pattern)).^2;
+PSF = PSF./max(max(PSF));
+imwrite(uint16(PSF.*65535),sprintf('./PSF_debye/PSF%d.tif',p));
+end
+```
 ### Using lens model to compute from focal plane to focal plane
+
+
 
 ### Sequence of Fresnel propagations and lens pupil function
