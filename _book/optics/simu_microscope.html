@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Gibberish · GitBook</title>
+        <title>[Simulation] A microscope · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="shadowsocks-on-qcloud.html" />
     
-    
-    <link rel="prev" href="../python-notes/taichi.html" />
+    <link rel="prev" href="./" />
     
 
     </head>
@@ -270,9 +268,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.6" data-path="./">
+        <li class="chapter " data-level="1.6" data-path="../gibberish/">
             
-                <a href="./">
+                <a href="../gibberish/">
             
                     
                     Gibberish
@@ -284,9 +282,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.6.1" data-path="shadowsocks-on-qcloud.html">
+        <li class="chapter " data-level="1.6.1" data-path="../gibberish/shadowsocks-on-qcloud.html">
             
-                <a href="shadowsocks-on-qcloud.html">
+                <a href="../gibberish/shadowsocks-on-qcloud.html">
             
                     
                     Shadowsocks on Qcloud
@@ -297,9 +295,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.2" data-path="chords.html">
+        <li class="chapter " data-level="1.6.2" data-path="../gibberish/chords.html">
             
-                <a href="chords.html">
+                <a href="../gibberish/chords.html">
             
                     
                     Chords
@@ -310,9 +308,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.3" data-path="internet-protocal.html">
+        <li class="chapter " data-level="1.6.3" data-path="../gibberish/internet-protocal.html">
             
-                <a href="internet-protocal.html">
+                <a href="../gibberish/internet-protocal.html">
             
                     
                     Internet protocal
@@ -323,9 +321,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.4" data-path="PR-projects.html">
+        <li class="chapter " data-level="1.6.4" data-path="../gibberish/PR-projects.html">
             
-                <a href="PR-projects.html">
+                <a href="../gibberish/PR-projects.html">
             
                     
                     PR projects
@@ -341,9 +339,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="../optics/">
+        <li class="chapter " data-level="1.7" data-path="./">
             
-                <a href="../optics/">
+                <a href="./">
             
                     
                     Optics
@@ -355,9 +353,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.7.1" data-path="../optics/simu_microscope.html">
+        <li class="chapter active" data-level="1.7.1" data-path="simu_microscope.html">
             
-                <a href="../optics/simu_microscope.html">
+                <a href="simu_microscope.html">
             
                     
                     [Simulation] A microscope
@@ -403,7 +401,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Gibberish</a>
+        <a href=".." >[Simulation] A microscope</a>
     </h1>
 </div>
 
@@ -418,7 +416,103 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="gibberish">Gibberish</h1>
+                                <h1 id="simulation-a-microscope">[Simulation] A microscope</h1>
+<p>I start from simple model, a microscope consisting of one infinity-corrected Objective and one tube lens, to validate the accuracy of the numerical model. In microscope usage, sample is placed at the fore-focal plane of the Objective. An &quot;infinity space&quot; of parallel light is created between the Objective and the tube lens, which brings the advantages over the non-corrected Objectives such as the flexibility of installing filters, modulators in the middle. A tube lens is designed for the Objectives of each specific manufactuer. It collects the light and forms the image at the rear-focal plane. The pupil distance is the optimal distance between the tube lens and the entrance pupil of the objective, which is a range. But here I just treat it as a 4f system where the rear-focal plane of the Objective coincides with the fore-focal plane of the tube lens. 
+<img src="../assets/microscope_schematic.jpg" alt="microscope_schematic"></p>
+<h2 id="some-theories">Some theories</h2>
+<h4 id="fresnel-diffraction">Fresnel diffraction</h4>
+<p>Fresnel formula describes the diffraction that happens in near field of the aperture. It&apos;s relatively accurate if Fresnel number $F = \frac{w^2}{z\lambda}$ is around 1~10.</p>
+<p>$$E_2 (x_2 ,y_2 )=\frac{exp(ikz_1 )}{i\lambda z_1}\int \int E_1 (x_1 , y_1 )exp( \frac{ik}{2z_1} ((x_2 -x_1 )^2 +(y_2 -y_1 )^2) ) dx_1 dx_2 $$</p>
+<p>$$ = \frac{exp(ikz<em>1 )}{i\lambda z_1}exp(\frac{ik}{2z_1}(x_2^2+y_2^2)\mathscr{F}(   E_1(x_1,y_1) exp(\frac{ik}{2z_1}(x_1^2+y_1^2)))</em>{u=\frac{x_2 }{\lambda z_1},v=\frac{y_2 }{\lambda z_1}}$$</p>
+<p>Due to the existence of $exp(\frac{ik}{2z_1}(x_1^2+y_1^2)$ in the fourier transform, the diffraction pattern is dependent on the propogation distance. There are ways to numerically compute the pattern:</p>
+<ol>
+<li><p>Dumb calculation by hand-written integral using the formula</p>
+<pre><code>scale = 16;
+dx2 = lambda*fmla/dx1/fovN*scale;
+x2space = dx2 * [ ceil(-fovN/scale/2):ceil(fovN/scale/2)-1 ];
+y2space = x2space;
+E2 = zeros(1, fovN/scale*fovN/scale);
+parfor g = 1:fovN/scale*fovN/scale
+ tic;
+ xx2 = x2space(1, mod( (g-1), (fovN/scale) ) + 1 );
+ yy2 = y2space(1, ceil( g / (fovN/scale) ) );
+ Koi = exp(1j*k*fmla)/(1j*lambda*fmla) * exp(1j*k/2/fmla*(xx2^2+yy2^2));
+ for aa = 1 : fovN
+     for bb = 1 : fovN
+         xx1 = x1space(aa);
+         yy1 = y1space(bb);
+         integrand = E1(bb,aa) * exp(1j*k/2/fmla*(xx1^2+yy1^2)) * exp(-1j*k/fmla*(xx2*xx1+yy2*yy1)) * dx1 * dx1;                
+         E2(g) = E2(g) + integrand*Koi;
+     end 
+ end
+ toc
+end
+E22 = reshape(E2&apos;, [fovN/scale, fovN/scale]);
+E22 = E22&apos;;
+</code></pre><p>Very time comsuming but there is no limitation from sampling issue. </p>
+</li>
+<li></li>
+</ol>
+<p>Sampling </p>
+<pre><code>function [f2, dx2, x2] = fresnelTF2d(f1, dx1, z, lambda)
+% assuming dx1=dy1, Nx=Ny
+
+k = 2*pi/lambda;
+[~, N] = size(f1);
+
+% determine if it oversamples
+fprintf(&quot;dx: %f should be larger than lambda*z/L: %f; Adequately sampling: %d\n&quot;, dx1, lambda*z/N/dx1, dx1&gt;lambda*z/N/dx1);
+
+du = 1/(N*dx1);
+u = du*[ ceil(-N/2):ceil(N/2)-1 ];
+[U, V] = meshgrid(u, u);
+
+H = exp(-1j*pi*lambda*z*(U.^2+V.^2));
+H = fftshift(H);
+f2 = exp(1j*k*z)*ifft2( fft2(f1) .* H );
+% f2 = exp(1j*k*z)*ifftshift( ifft2( fft2(fftshift(f1)) .* H ) );
+
+dx2 = dx1;
+x2 = dx2*[ ceil(-N/2):ceil(N/2)-1 ];
+
+end
+</code></pre><ol>
+<li>```
+function [f2, dx2, x2] = fresnelIR2d(f1, dx1, z, lambda)
+% assuming dx1=dy1, Nx=Ny</li>
+</ol>
+<p>k = 2*pi/lambda;
+[~, N] = size(f1);</p>
+<p>% determine if it oversamples
+fprintf(&quot;dx: %f; lambda<em>z/L: %f; Adequately sampling: %d\n&quot;, dx1, lambda</em>z/N/dx1, dx1&lt;lambda*z/N/dx1);</p>
+<p>x1 = dx1 * [ceil(-N/2):ceil(N/2)-1];
+[X, Y] = meshgrid(x1, x1);</p>
+<p>h = 1/(1j<em>lambda</em>z)<em>exp(1j</em>k/(2<em>z)</em>(X.^2+Y.^2));
+H = fft2(fftshift(h))<em>dx1</em>dx1;
+U1=fft2(fftshift(f1));
+U2=H.*U1;
+f2=ifftshift(ifft2(U2));</p>
+<p>dx2 = dx1;
+x2 = dx2*[ ceil(-N/2):ceil(N/2)-1 ];</p>
+<p>end</p>
+<pre><code>
+#### Fraunhofer diffraction
+$$E_2 (x_2 ,y_2 ) = \frac{exp(ikz_1 )}{i\lambda z_1}exp(\frac{ik}{2z_1}(x_2^2+y_2^2)\mathscr{F}(   E_1(x_1,y_1) exp(\frac{ik}{2z_1}))_{u=\frac{x_2 }{\lambda z_1},v=\frac{y_2 }{\lambda z_1}}$$
+
+1. Fourier transform
+</code></pre><p>function [f2, dx2, x2] = fraunhofer2d(f1, dx1, z, lambda)
+% assuming dx1=dy1, Nx=Ny</p>
+<p>k = 2*pi/lambda;
+[~, N] = size(f1);</p>
+<p>% determine if it oversamples
+fprintf(&quot;dx: %f should be larger than lambda<em>z/L: %f; Adequately sampling: %d\n&quot;, dx1, lambda</em>z/N/dx1, dx1&gt;lambda*z/N/dx1);</p>
+<p>dx2 = lambda<em>z/dx1/N;
+x2 = dx2</em>[ ceil(-N/2):ceil(N/2)-1 ];
+[X2, Y2] = meshgrid(x2, x2);</p>
+<p>c = exp(1j<em>k</em>z) <em> exp(1j</em>k/2/z<em>(X2.^2+Y2.^2)) / (1j</em>lambda<em>z);
+f2 = c .</em> ifftshift(fft2(fftshift(f1))) * dx1^2;</p>
+<p>end
+```</p>
 
                                 
                                 </section>
@@ -446,14 +540,10 @@
 
             
                 
-                <a href="../python-notes/taichi.html" class="navigation navigation-prev " aria-label="Previous page: Taichi">
+                <a href="./" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Optics">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="shadowsocks-on-qcloud.html" class="navigation navigation-next " aria-label="Next page: Shadowsocks on Qcloud">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -462,7 +552,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Gibberish","level":"1.6","depth":1,"next":{"title":"Shadowsocks on Qcloud","level":"1.6.1","depth":2,"path":"gibberish/shadowsocks-on-qcloud.md","ref":"gibberish/shadowsocks-on-qcloud.md","articles":[]},"previous":{"title":"Taichi","level":"1.5.2","depth":2,"path":"python-notes/taichi.md","ref":"python-notes/taichi.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"gibberish/README.md","mtime":"2021-05-09T19:41:11.939Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-12T05:08:42.470Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"[Simulation] A microscope","level":"1.7.1","depth":2,"previous":{"title":"Optics","level":"1.7","depth":1,"path":"optics/README.md","ref":"optics/README.md","articles":[{"title":"[Simulation] A microscope","level":"1.7.1","depth":2,"path":"optics/simu_microscope.md","ref":"optics/simu_microscope.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"optics/simu_microscope.md","mtime":"2021-07-12T05:08:35.052Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-12T05:08:42.470Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
