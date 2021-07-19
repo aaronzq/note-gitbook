@@ -4,7 +4,7 @@ I start from simple model, a microscope consisting of one infinity-corrected Obj
 ![microscope_schematic](/assets/microscope_schematic.jpg)
 
 ## Some theories
-### Fresnel diffraction
+### 1. Fresnel diffraction
 Fresnel formula describes the diffraction that happens in near field of the aperture. It's relatively accurate if Fresnel number $F = \frac{w^2}{z\lambda}$ is around 1~10.
 $$E_2 (x_2 ,y_2 )=\frac{exp(ikz_1 )}{i\lambda z_1}\int \int E_1 (x_1 , y_1 )exp( \frac{ik}{2z_1} ((x_2 -x_1 )^2 +(y_2 -y_1 )^2) ) dx_1 dx_2 $$
 $$ = \frac{exp(ikz_1 )}{i\lambda z_1}exp(\frac{ik}{2z_1}(x_2^2+y_2^2))\mathscr{F}(   E_1(x_1,y_1) exp(\frac{ik}{2z_1}(x_1^2+y_1^2)))_{u=\frac{x_2 }{\lambda z_1},v=\frac{y_2 }{\lambda z_1}}$$
@@ -117,7 +117,7 @@ x2 = dx2*[ ceil(-N/2):ceil(N/2)-1 ];
 end
 ```
 
-### Fraunhofer diffraction
+### 2. Fraunhofer diffraction
 Fraunhofer formula describes the diffraction that happens in far field of the aperture. It's relatively accurate if Fresnel number $F = \frac{w^2}{z\lambda}$ is << 1.
 $$E_2 (x_2 ,y_2 ) = \frac{exp(ikz_1 )}{i\lambda z_1}exp(\frac{ik}{2z_1}(x_2^2+y_2^2))\mathscr{F}(   E_1(x_1,y_1))_{u=\frac{x_2 }{\lambda z_1},v=\frac{y_2 }{\lambda z_1}}$$
 
@@ -143,7 +143,7 @@ f2 = c .* ifftshift(fft2(fftshift(f1))) * dx1^2;
 end
 ```
 
-### Wave propagation through a single Lens 
+### 3. Wave propagation through a single Lens 
 In paraxial approximation (p.s. nearly all discussion above is based on paraxial approximation though), the pupil function, i.e. the modulation on the wavefront through the lens, is defined as 
 $$
 P(x,y) = exp(\frac{-i\pi}{\lambda f}(x^2+y^2)) * Aperture(x,y)
@@ -171,12 +171,41 @@ $$
 $$
 This is exactly the Fraunhofer diffraction and simply a fourier transform if we don't consider the extra phase term. 
 
-Now we want to extend the starting point of propagation from right before the lens to the **fore-focal plane** of the Objective. Instead of applying another Fresnel propagation, we consider what the difference is between two wavefronts at two planes in frequency domain. We know that light with a certain spatial frequency $(u,v)$ means the plane wave that travels at a certain direction. The spatial frequencies of this plane wave in three axis are $(\frac{cos(\theta_x)}{\lambda}, \frac{cos(\theta_y)}{\lambda}, \frac{cos(\theta_z)}{\lambda})$, while $cos(\theta_x)^2+cos(\theta_y)^2+cos(\theta_z)^2 = 1$ and $\theta$ is the angle between the propagation direction and the corresponding axis. The wave numbers in three axis are $(k)$
+Now we want to extend the starting point of propagation from right before the lens to the **fore-focal plane** of the Objective. Instead of applying another Fresnel propagation, we consider what the difference is between two wavefronts at two planes in frequency domain. We know that light with a certain spatial frequency $(u,v)$ means the plane wave that travels at a certain direction. The spatial frequencies of this plane wave in three axis are $(\frac{cos(\theta_x)}{\lambda}, \frac{cos(\theta_y)}{\lambda}, \frac{cos(\theta_z)}{\lambda})$, while $cos(\theta_x)^2+cos(\theta_y)^2+cos(\theta_z)^2 = 1$ and $\theta$ is the angle between the propagation direction and the corresponding axis. For a certain plane wave, the phase change after propagation in the optical axis at a distance z is $i*2\pi *\frac{cos(\theta_z)}{\lambda}=i*2\pi *\frac{ \sqrt{1-(cos(\theta_x)^2 - cos(\theta_y)^2)}}{\lambda}$. If we relate this physically defined spatial frequency $(\frac{cos(\theta_x)}{\lambda}, \frac{cos(\theta_y)}{\lambda}, \frac{cos(\theta_z)}{\lambda})$ to the one we computed through FFT, $(u,v)$. The phase change can be expressed as $i*2\pi * \sqrt{1-u^2 - v^2)} = i*2\pi * \sqrt{1-(\frac{x}{\lambda f})^2 - (\frac{y}{\lambda f})^2)}$. Under paraxial approximation (i.e. $x << f$, $y << f$), the reduct of this term is $-i*\frac{\pi}{\lambda f}*(x^2+y^2)=-i*\frac{k}{2f}*(x^2+y^2)$. 
+
+This indicates that, if we look at the wavefront at the fore-focal plane $E_0$ and the wavefront right before the lens $E_1$, they have a relation that $\mathscr{F}(E_1)=\mathscr{F}(E_0)*exp(-i*\frac{k}{2f}*(x^2+y^2))$, where $$(x,y) are the spatial coordiante at the fourier plane (rear-focal plane).
+
+Let's input this into the equation we derived for wavefront propagation from right before the lens to the rear-focal plane. We will get: 
+
+$$
+E_2 = \frac{exp(ikf )}{i\lambda f}\mathscr{F}(   E_1(x_1,y_1) )_{u=\frac{x_2 }{\lambda f},v=\frac{y_2 }{\lambda f}}
+$$
+
+It means that the rear-focal plane is exactly the fourier tranform of the wavefront at the fore-focal plane. This is the modulation of a lens. Note that we didn't consider any finite aperture in this derivation. One can insert the aperture function $Aperture(x, y)$ to the above equations. 
+
+
+```matlab
+function [f2, dx2, x2] = lenFT2d(f1, dx1, flens, lambda)
+% assuming dx1=dy1, Nx=Ny
+
+k = 2*pi/lambda;
+[~, N] = size(f1);
+
+dx2 = lambda*flens/dx1/N;
+x2 = dx2*[ ceil(-N/2):ceil(N/2)-1 ];
+[X2, Y2] = meshgrid(x2, x2);
+
+
+Koi = -1i*exp(1i*k*flens)/(lambda*flens);
+f2 = Koi .* ifftshift(fft2(fftshift(f1))) * dx1^2;
+
+end
+```
 
 -k * p3(p) * sqrt( 1 - (R.^2)./(fobj^2) 
-### Debye integral
+### 4. Debye integral
 
-### Some notes about FFT in MATLAB
+### 5. Some notes about FFT in MATLAB
 
 Take extra care of FFT and iFFT in MATLAB because their coordinate system is defined as following:
 *For a 2D N x N matrix, on each axis, (0, N/2) is the positive half axis and (N/2+1, N) is the negative half axis.*
