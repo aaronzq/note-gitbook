@@ -7,9 +7,9 @@ I start from simple model, a microscope consisting of one infinity-corrected Obj
 ### Fresnel diffraction
 Fresnel formula describes the diffraction that happens in near field of the aperture. It's relatively accurate if Fresnel number $F = \frac{w^2}{z\lambda}$ is around 1~10.
 $$E_2 (x_2 ,y_2 )=\frac{exp(ikz_1 )}{i\lambda z_1}\int \int E_1 (x_1 , y_1 )exp( \frac{ik}{2z_1} ((x_2 -x_1 )^2 +(y_2 -y_1 )^2) ) dx_1 dx_2 $$
-$$ = \frac{exp(ikz_1 )}{i\lambda z_1}exp(\frac{ik}{2z_1}(x_2^2+y_2^2)\mathscr{F}(   E_1(x_1,y_1) exp(\frac{ik}{2z_1}(x_1^2+y_1^2)))_{u=\frac{x_2 }{\lambda z_1},v=\frac{y_2 }{\lambda z_1}}$$
+$$ = \frac{exp(ikz_1 )}{i\lambda z_1}exp(\frac{ik}{2z_1}(x_2^2+y_2^2))\mathscr{F}(   E_1(x_1,y_1) exp(\frac{ik}{2z_1}(x_1^2+y_1^2)))_{u=\frac{x_2 }{\lambda z_1},v=\frac{y_2 }{\lambda z_1}}$$
 
-Due to the existence of $exp(\frac{ik}{2z_1}(x_1^2+y_1^2)$ in the fourier transform, the diffraction pattern is dependent on the propogation distance. There are ways to numerically compute the pattern:
+Where $k=\frac{2\pi}{\lambda}$. Due to the existence of $exp(\frac{ik}{2z_1}(x_1^2+y_1^2)$ in the fourier transform, the diffraction pattern is dependent on the propogation distance. There are ways to numerically compute the pattern:
 
 1. Dumb calculation by hand-written integral using the formula
 ```matlab
@@ -36,7 +36,7 @@ end
 E22 = reshape(E2', [fovN/scale, fovN/scale]);
 E22 = E22';
 ```
-Very time comsuming when image resolution is high (Time consumption is acceptable ). But there is no limitation from sampling issue. In another word, it doesn't affect the accuracy if we use a small sampling number, in contrast to following FFT-based methods.
+Very time comsuming when image resolution is high (in practice, time consumption is acceptable only when resolution is several hundred). But there is no limitation from sampling issue. In another word, it doesn't affect the accuracy if we use a small sampling number, in contrast to following FFT-based methods.
 
 2. Fresnel Transfer Function (TF) Propagator
 
@@ -119,7 +119,7 @@ end
 
 ### Fraunhofer diffraction
 Fraunhofer formula describes the diffraction that happens in far field of the aperture. It's relatively accurate if Fresnel number $F = \frac{w^2}{z\lambda}$ is << 1.
-$$E_2 (x_2 ,y_2 ) = \frac{exp(ikz_1 )}{i\lambda z_1}exp(\frac{ik}{2z_1}(x_2^2+y_2^2)\mathscr{F}(   E_1(x_1,y_1) exp(\frac{ik}{2z_1}))_{u=\frac{x_2 }{\lambda z_1},v=\frac{y_2 }{\lambda z_1}}$$
+$$E_2 (x_2 ,y_2 ) = \frac{exp(ikz_1 )}{i\lambda z_1}exp(\frac{ik}{2z_1}(x_2^2+y_2^2))\mathscr{F}(   E_1(x_1,y_1))_{u=\frac{x_2 }{\lambda z_1},v=\frac{y_2 }{\lambda z_1}}$$
 
 1. Fourier transform
 
@@ -144,7 +144,36 @@ end
 ```
 
 ### Wave propagation through a single Lens 
+In paraxial approximation (p.s. nearly all discussion above is based on paraxial approximation though), the pupil function, i.e. the modulation on the wavefront through the lens, is defined as 
+$$
+P(x,y) = exp(\frac{-i\pi}{\lambda f}(x^2+y^2)) * Aperture(x,y)
+$$
+$f$ is the focal length, $Aperture(x,y)$ represents the finite pupil size. A basic aperture function can be
+$$
+Aperture(x, y) = 1\ if\ x^2+y^2 < R\ otherwise \ 0
+$$
+where $R$ is the radius of aperture.
 
+**Note that it's important to fullfill the sampling criterion:**
+$$
+F/\# = f/D >= \frac{dx}{\lambda}
+$$
+where $D$ is the diameter of the lens aperture and $dx$ is the sampling step size. This criterion indicates that **large sampling number**, finer sampling step size should be used to simulate small F number lens.
+
+Let's consider how wavefront propagates to the rear-focal plane after a single lens. 
+
+If the wavefront **right before** the lens is $E_1(x_1, y_1)$, the wavefront at the back-focal plane via Fresnel propagation can be computed as
+$$
+E_2(x_2,y_2)= \frac{exp(ikf )}{i\lambda f}exp(\frac{ik}{2f}(x_2^2+y_2^2))\mathscr{F}(   E_1(x_1,y_1) exp(\frac{-i\pi}{\lambda f}(x_1^2+y_1^2)) exp(\frac{ik}{2f}(x_1^2+y_1^2)))_{u=\frac{x_2 }{\lambda f},v=\frac{y_2 }{\lambda f}}
+$$
+$$
+= \frac{exp(ikf )}{i\lambda f}exp(\frac{ik}{2f}(x_2^2+y_2^2))\mathscr{F}(   E_1(x_1,y_1) )_{u=\frac{x_2 }{\lambda f},v=\frac{y_2 }{\lambda f}}
+$$
+This is exactly the Fraunhofer diffraction and simply a fourier transform if we don't consider the extra phase term. 
+
+Now we want to extend the starting point of propagation from right before the lens to the **fore-focal plane** of the Objective. Instead of applying another Fresnel propagation, we consider what the difference is between two wavefronts at two planes in frequency domain. We know that light with a certain spatial frequency $(u,v)$ means the plane wave that travels at a certain direction. The spatial frequencies of this plane wave in three axis are $(\frac{cos(\theta_x)}{\lambda}, \frac{cos(\theta_y)}{\lambda}, \frac{cos(\theta_z)}{\lambda})$, while $cos(\theta_x)^2+cos(\theta_y)^2+cos(\theta_z)^2 = 1$ and $\theta$ is the angle between the propagation direction and the corresponding axis. The wave numbers in three axis are $(k)$
+
+-k * p3(p) * sqrt( 1 - (R.^2)./(fobj^2) 
 ### Debye integral
 
 ### Some notes about FFT in MATLAB
