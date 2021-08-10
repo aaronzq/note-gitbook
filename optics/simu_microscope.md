@@ -171,9 +171,11 @@ $$
 $$
 This is exactly the Fraunhofer diffraction and simply a fourier transform if we don't consider the extra phase term. 
 
-Now we want to extend the starting point of propagation from right before the lens to the **fore-focal plane** of the Objective. Instead of applying another Fresnel propagation, we consider what the difference is between two wavefronts at two planes in frequency domain. We know that light with a certain spatial frequency $(u,v)$ means the plane wave that travels at a certain direction. The spatial frequencies of this plane wave in three axis are $(\frac{cos(\theta_x)}{\lambda}, \frac{cos(\theta_y)}{\lambda}, \frac{cos(\theta_z)}{\lambda})$, while $cos(\theta_x)^2+cos(\theta_y)^2+cos(\theta_z)^2 = 1$ and $\theta$ is the angle between the propagation direction and the corresponding axis. For a certain plane wave, the phase change after propagation in the optical axis at a distance z is $i*2\pi *\frac{cos(\theta_z)}{\lambda}=i*2\pi *\frac{ \sqrt{1-(cos(\theta_x)^2 - cos(\theta_y)^2)}}{\lambda}$. If we relate this physically defined spatial frequency $(\frac{cos(\theta_x)}{\lambda}, \frac{cos(\theta_y)}{\lambda}, \frac{cos(\theta_z)}{\lambda})$ to the one we computed through FFT, $(u,v)$. The phase change can be expressed as $i*2\pi * \sqrt{1-u^2 - v^2)} = i*2\pi * \sqrt{1-(\frac{x}{\lambda f})^2 - (\frac{y}{\lambda f})^2)}$. Under paraxial approximation (i.e. $x << f$, $y << f$), the reduct of this term is $-i*\frac{\pi}{\lambda f}*(x^2+y^2)=-i*\frac{k}{2f}*(x^2+y^2)$. 
+Now we want to extend the starting point of propagation from right before the lens to the **fore-focal plane** of the Objective. Instead of applying another Fresnel propagation, we consider what the difference is between two wavefronts at two planes in frequency domain. We know that light with a certain spatial frequency $(u,v)$ means the planar wave that travels at a certain direction. The spatial frequencies of this plane wave in three axis are $(\frac{cos(\theta_x)}{\lambda}, \frac{cos(\theta_y)}{\lambda}, \frac{cos(\theta_z)}{\lambda})$, while $cos(\theta_x)^2+cos(\theta_y)^2+cos(\theta_z)^2 = 1$ and $\theta$ is the angle between the propagation direction and the corresponding axis. For a certain plane wave, the phase change after propagation in the optical axis at a distance z is $i*2\pi * z * \frac{cos(\theta_z)}{\lambda}=i*2\pi * z *\sqrt{ \frac{ 1-(cos(\theta_x)^2 - cos(\theta_y)^2)}{\lambda^2 }}$. If we relate this physically defined spatial frequency $(\frac{cos(\theta_x)}{\lambda}, \frac{cos(\theta_y)}{\lambda}, \frac{cos(\theta_z)}{\lambda})$ to the one we computed through FFT, $(u,v)$. The phase change can be expressed as $i*2\pi * z * \sqrt{1-u^2 - v^2)} = i*2\pi * z * \sqrt{\frac{1}{\lambda^2} -(\frac{x}{\lambda f})^2 - (\frac{y}{\lambda f})^2)}$. Under paraxial approximation (i.e. $x << f$, $y << f$), the reduct of this term is $-i*\frac{\pi z}{\lambda f^2}*(x^2+y^2)=-i*\frac{kz}{2f^2}*(x^2+y^2)$. 
 
-This indicates that, if we look at the wavefront at the fore-focal plane $E_0$ and the wavefront right before the lens $E_1$, they have a relation that $\mathscr{F}(E_1)=\mathscr{F}(E_0)*exp(-i*\frac{k}{2f}*(x^2+y^2))$, where $$(x,y) are the spatial coordiante at the fourier plane (rear-focal plane).
+**p.s.** Another perspective from geometric optics: $ cos(\theta_z) = 1-sin(\theta_z)^2\approx 1 - tan(\theta_z)^2 = 1 - \frac{x^2+y^2}{f^2}$, where $(x,y)$ is the spatial coordiante at the fourier plane (rear-focal plane). Here we consider the chief ray that passes through the center of the lens.
+
+This indicates that, if we look at the wavefront at the fore-focal plane ($z=f$) $E_0$ and the wavefront right before the lens $E_1$, they have a relation that $\mathscr{F}(E_1)=\mathscr{F}(E_0)*exp(-i*\frac{k}{2f}*(x^2+y^2))$, where $(x,y)$ is the spatial coordiante at the fourier plane (rear-focal plane).
 
 Let's input this into the equation we derived for wavefront propagation from right before the lens to the rear-focal plane. We will get: 
 
@@ -202,7 +204,6 @@ f2 = Koi .* ifftshift(fft2(fftshift(f1))) * dx1^2;
 end
 ```
 
--k * p3(p) * sqrt( 1 - (R.^2)./(fobj^2) 
 ### 4. Debye integral
 
 ### 5. Some notes about FFT in MATLAB
