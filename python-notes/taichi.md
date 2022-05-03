@@ -1,6 +1,6 @@
 # Taichi
 
-Taichi is a Domain-Specific Language embedded in Python, which is used for Computer Graphics. 
+Taichi is a Domain-Specific Language embedded in Python, which is used for Computer Graphics.&#x20;
 
 ## At the beginning
 
@@ -17,15 +17,15 @@ ti.init(arch = ti.gpu) # initialize taichi
 
 ## Data type
 
-Taichi supports:  
-1. int \(ti.i8/i16/i32/i64\)  
-2. uint \(ti.u8/u16/u32/u64\)  
-3. float \(**ti.f32**/f64\)  
-  
-Float 32 is commonly used. OpenGL supports i32, f32 and f64.  
+Taichi supports:\
+1\. int (ti.i8/i16/i32/i64)\
+2\. uint (ti.u8/u16/u32/u64)\
+3\. float (**ti.f32**/f64)\
+\
+Float 32 is commonly used. OpenGL supports i32, f32 and f64.\
 Boolean types should be represented using ti.i32
 
-### Tensor: tensors are _global variables_ provided by Taichi. 
+### Tensor: tensors are _global variables_ provided by Taichi.&#x20;
 
 Tensors can be either sparse or dense. An element of a tensor can be either a scalar or a vector/matrix.
 
@@ -38,7 +38,7 @@ C= ti.Matrix(2, 2, dt=ti.f32, shape=(3, 5))
 # A tensor of 3x5 2x2 matrices
 ```
 
-If `shape` is `()` \(empty tuple\), then a 0-D tensor \(scalar\) is created. And we should access it by passing `None` as index:
+If `shape` is `()` (empty tuple), then a 0-D tensor (scalar) is created. And we should access it by passing `None` as index:
 
 ```python
 loss = ti.var(dt=ti.f32, shape=()) 
@@ -111,7 +111,7 @@ res = add_xy(2.3, 1.1)
 print(res)  # 3, since return type is ti.i32
 ```
 
-**Functions** are callable only in Taichi-scope \(by kernels or other functions\). Do not call them in Python-scopes.
+**Functions** are callable only in Taichi-scope (by kernels or other functions). Do not call them in Python-scopes.
 
 ```python
 @ti.func
@@ -133,9 +133,9 @@ def fdtd(t: ti.i32):
 
 ### For loops
 
-There are 2 types of for-loops:  
-1. Range-for loops  
-2. Struct-for loops
+There are 2 types of for-loops:\
+1\. Range-for loops\
+2\. Struct-for loops
 
 #### Range-for loops
 
@@ -176,7 +176,7 @@ def bar(k: ti.i32):
 
 ### Atomic operations
 
-In Taichi, augmented assignments \(e.g., `x[i] += 1`\) are automatically [atomic](https://en.wikipedia.org/wiki/Fetch-and-add).  When modifying global variables in parallel, make sure you use atomic operations. For example, to sum up all the elements in `x`:
+In Taichi, augmented assignments (e.g., `x[i] += 1`) are automatically [atomic](https://en.wikipedia.org/wiki/Fetch-and-add).  When modifying global variables in parallel, make sure you use atomic operations. For example, to sum up all the elements in `x`:
 
 ```python
 @ti.kernel
@@ -200,15 +200,14 @@ def sum():
 
 ## Taichi-scope and Python-scope
 
-Kernel and function are inside Taichi-scope, compiled by Taichi compiler.  
+Kernel and function are inside Taichi-scope, compiled by Taichi compiler.\
 The others are in Python-scope
 
 ## Templates
 
-1. Initialization: ti.init\(arch = ti.gpu\)
-2. Define and assign tensor: ti.var\(\), ti.Vector\(\), ti.Matrix\(\)
+1. Initialization: ti.init(arch = ti.gpu)
+2. Define and assign tensor: ti.var(), ti.Vector(), ti.Matrix()
 3. Computation: launch kernels, access tensors in Python-scope
-4. Optional: ti.reset\(\) to reset Taichi system: erase cache, variables and kernels.
+4. Optional: ti.reset() to reset Taichi system: erase cache, variables and kernels.
 
-##  
-
+## &#x20;

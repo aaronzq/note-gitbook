@@ -4,9 +4,9 @@ description: Useful python tricks
 
 # Basics
 
-### \*args and \*\*kwargs
+## \*args and \*\*kwargs
 
-These two are used in function definition where the number of variables input by users is unknown. **\*args** for non-keyworded and **\*\*kwargs** for key-worded. _Note: the naming **args** and **kwargs** are not necessary but under convention._ 
+These two are used in function definition where the number of variables input by users is unknown. **\*args** for non-keyworded and **\*\*kwargs** for key-worded. _Note: the naming **args** and **kwargs** are not necessary but under convention._
 
 ```python
 def adder(*args):
@@ -38,15 +38,15 @@ output:
 > 6
 ```
 
-### Decorator
+## Decorator
 
 [https://wiki.jikexueyuan.com/project/interpy-zh/decorators/your\_first\_decorator.html](https://wiki.jikexueyuan.com/project/interpy-zh/decorators/your\_first\_decorator.html)
 
 todo: write my own version of note after really using the decorator
 
-### Variable scope between different scripts
+## Variable scope between different scripts
 
-If you define a variable in one script, we can access it by import this variable from that script. But when we alter the value of that varible, it actually creates a new variable in the current script without changing the original one. 
+If you define a variable in one script, we can access it by import this variable from that script. But when we alter the value of that varible, it actually creates a new variable in the current script without changing the original one.
 
 ```python
 % file one: config.py - create the variable
@@ -108,4 +108,3 @@ after editting in main.py
 (10, 140577287984896) 
 (30, 140577287984416) // para2 in edit.py scope after edit
 ```
-
