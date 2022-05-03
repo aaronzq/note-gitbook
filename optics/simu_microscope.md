@@ -1,12 +1,16 @@
 # \[Simulation] A microscope
 
-I start from simple model, a microscope consisting of one infinity-corrected Objective and one tube lens, to validate the accuracy of the numerical model. In microscope usage, sample is placed at the fore-focal plane of the Objective. An "infinity space" of parallel light is created between the Objective and the tube lens, which brings the advantages over the non-corrected Objectives such as the flexibility of installing filters, modulators in the middle. A tube lens is designed for the Objectives of each specific manufactuer. It collects the light and forms the image at the rear-focal plane. The pupil distance is the optimal distance between the tube lens and the entrance pupil of the objective, which is a range. But here I just treat it as a 4f system where the rear-focal plane of the Objective coincides with the fore-focal plane of the tube lens. ![microscope\_schematic](../../assets/microscope\_schematic.jpg)
+I start from simple model, a microscope consisting of one infinity-corrected Objective and one tube lens, to validate the accuracy of the numerical model. In microscope usage, sample is placed at the fore-focal plane of the Objective. An "infinity space" of parallel light is created between the Objective and the tube lens, which brings the advantages over the non-corrected Objectives such as the flexibility of installing filters, modulators in the middle. A tube lens is designed for the Objectives of each specific manufactuer. It collects the light and forms the image at the rear-focal plane. The pupil distance is the optimal distance between the tube lens and the entrance pupil of the objective, which is a range. But here I just treat it as a 4f system where the rear-focal plane of the Objective coincides with the fore-focal plane of the tube lens. ![microscope\_schematic](../assets/microscope_schematic.jpg)
 
 ## Some theories
 
 ### 1. Fresnel diffraction
 
-Fresnel formula describes the diffraction that happens in near field of the aperture. It's relatively accurate if Fresnel number $F = \frac{w^2}{z\lambda}$ is around 1\~10. $$E_2 (x_2 ,y_2 )=\frac{exp(ikz_1 )}{i\lambda z_1}\int \int E_1 (x_1 , y_1 )exp( \frac{ik}{2z_1} ((x_2 -x_1 )^2 +(y_2 -y_1 )^2) ) dx_1 dx_2$$ $$= \frac{exp(ikz_1 )}{i\lambda z_1}exp(\frac{ik}{2z_1}(x_2^2+y_2^2))\mathscr{F}( E_1(x_1,y_1) exp(\frac{ik}{2z_1}(x_1^2+y_1^2)))_{u=\frac{x_2 }{\lambda z_1},v=\frac{y_2 }{\lambda z_1}}$$
+Fresnel formula describes the diffraction that happens in near field of the aperture. It's relatively accurate if Fresnel number $F = \frac{w^2}{z\lambda}$ is around 1\~10. 
+
+$$E_2 (x_2 ,y_2 )=\frac{exp(ikz_1 )}{i\lambda z_1}\int \int E_1 (x_1 , y_1 )exp( \frac{ik}{2z_1} ((x_2 -x_1 )^2 +(y_2 -y_1 )^2) ) dx_1 dx_2$$ 
+
+$$= \frac{exp(ikz_1 )}{i\lambda z_1}exp(\frac{ik}{2z_1}(x_2^2+y_2^2))\mathscr{F}( E_1(x_1,y_1) exp(\frac{ik}{2z_1}(x_1^2+y_1^2)))_{u=\frac{x_2 }{\lambda z_1},v=\frac{y_2 }{\lambda z_1}}$$
 
 Where $k=\frac{2\pi}{\lambda}$. Due to the existence of $exp(\frac{ik}{2z\_1}(x\_1^2+y\_1^2)$ in the fourier transform, the diffraction pattern is dependent on the propogation distance. There are ways to numerically compute the pattern:
 
@@ -51,7 +55,7 @@ $$
 **The convolution of two functions can be computed by the inverse fourier transformation of the multiplication of their fourier transformations respectively.** Discrete sampling of the source field, sampling of the transfer function, and the periodic nature of the FFT can lead to a variety of artifacts in the propagation result. In order to suppress artifacts:
 
 * The simulation array size should be larger than the source field, i.e. the aperture;
-*   $ dx >= \frac{\lambda z}{L}$, $L$ is the length of the array. This ensure the adequate sampling of the transfer function H.
+*   $dx >= \frac{\lambda z}{L}$, $L$ is the length of the array. This ensure the adequate sampling of the transfer function H.
 
     **Note that the result is the same whether a single TF propagation or a sequence of shorter TF propagations is used. This is because a succession of TF propagations is the same as applying the product of the transfer functions to the initial field.**
 
@@ -93,7 +97,7 @@ end
 Similar to FT Propagator, in order to suppress artifacts:
 
 * The simulation array size should be larger than the source field, i.e. the aperture;
-* $ dx <= \frac{\lambda z}{L}$, $L$ is the length of the array. This ensure the adequate sampling of the impulse function.
+* $dx <= \frac{\lambda z}{L}$, $L$ is the length of the array. This ensure the adequate sampling of the impulse function.
 
 **Note that the second creterion is exactly the opposite to FT Propagator, which indicates compared to FT Propagator, IR Propagator is more suitable in long distace Fresnel propagation.**
 
@@ -124,7 +128,8 @@ end
 
 ### 2. Fraunhofer diffraction
 
-Fraunhofer formula describes the diffraction that happens in far field of the aperture. It's relatively accurate if Fresnel number $F = \frac{w^2}{z\lambda}$ is << 1. $$E_2 (x_2 ,y_2 ) = \frac{exp(ikz_1 )}{i\lambda z_1}exp(\frac{ik}{2z_1}(x_2^2+y_2^2))\mathscr{F}( E_1(x_1,y_1))_{u=\frac{x_2 }{\lambda z_1},v=\frac{y_2 }{\lambda z_1}}$$
+Fraunhofer formula describes the diffraction that happens in far field of the aperture. It's relatively accurate if Fresnel number $F = \frac{w^2}{z\lambda}$ is << 1. 
+$$E_2 (x_2 ,y_2 ) = \frac{exp(ikz_1 )}{i\lambda z_1}exp(\frac{ik}{2z_1}(x_2^2+y_2^2))\mathscr{F}( E_1(x_1,y_1))_{u=\frac{x_2 }{\lambda z_1},v=\frac{y_2 }{\lambda z_1}}$$
 
 1. Fourier transform
 
@@ -186,11 +191,11 @@ $$
 
 This is exactly the Fraunhofer diffraction and simply a fourier transform if we don't consider the extra phase term.
 
-Now we want to extend the starting point of propagation from right before the lens to the **fore-focal plane** of the Objective. Instead of applying another Fresnel propagation, we consider what the difference is between two wavefronts at two planes in frequency domain. We know that light with a certain spatial frequency $(u,v)$ means the planar wave that travels at a certain direction. The spatial frequencies of this plane wave in three axis are $(\frac{cos(\theta\_x)}{\lambda}, \frac{cos(\theta\_y)}{\lambda}, \frac{cos(\theta\_z)}{\lambda})$, while $cos(\theta\_x)^2+cos(\theta\_y)^2+cos(\theta\_z)^2 = 1$ and $\theta$ is the angle between the propagation direction and the corresponding axis. For a certain plane wave, the phase change after propagation in the optical axis at a distance z is $i_2\pi_ z _\frac{cos(\theta\_z)}{\lambda}=i_2\pi _z_ \sqrt{ \frac{ 1-(cos(\theta\_x)^2 - cos(\theta\_y)^2)}{\lambda^2 \}}$. If we relate this physically defined spatial frequency $(\frac{cos(\theta\_x)}{\lambda}, \frac{cos(\theta\_y)}{\lambda}, \frac{cos(\theta\_z)}{\lambda})$ to the one we computed through FFT, $(u,v)$. The phase change can be expressed as $i_2\pi_ z _\sqrt{1-u^2 - v^2)} = i_2\pi _z_ \sqrt{\frac{1}{\lambda^2} -(\frac{x}{\lambda f})^2 - (\frac{y}{\lambda f})^2)}$. Under paraxial approximation (i.e. $x << f$, $y << f$), the reduct of this term is $-i_\frac{\pi z}{\lambda f^2}_(x^2+y^2)=-i_\frac{kz}{2f^2}_(x^2+y^2)$.
+Now we want to extend the starting point of propagation from right before the lens to the **fore-focal plane** of the Objective. Instead of applying another Fresnel propagation, we consider what the difference is between two wavefronts at two planes in frequency domain. We know that light with a certain spatial frequency $(u,v)$ means the planar wave that travels at a certain direction. The spatial frequencies of this plane wave in three axis are $(\frac{cos(\theta_x)}{\lambda}, \frac{cos(\theta_y)}{\lambda}, \frac{cos(\theta_z)}{\lambda})$, while $cos(\theta_x)^2+cos(\theta_y)^2+cos(\theta_z)^2 = 1$ and $\theta$ is the angle between the propagation direction and the corresponding axis. For a certain plane wave, the phase change after propagation in the optical axis at a distance z is $i2\pi z \frac{cos(\theta_z)}{\lambda}  =  i2\pi z \sqrt{ \frac{ 1-(cos(\theta_x)^2 - cos(\theta_y)^2)}{\lambda^2 }}$. If we relate this physically defined spatial frequency $(\frac{cos(\theta_x)}{\lambda}, \frac{cos(\theta_y)}{\lambda}, \frac{cos(\theta_z)}{\lambda})$ to the one we computed through FFT, $(u,v)$. The phase change can be expressed as $i2\pi z \sqrt{1-u^2 - v^2)} = i2\pi z \sqrt{\frac{1}{\lambda^2} -(\frac{x}{\lambda f})^2 - (\frac{y}{\lambda f})^2)}$. Under paraxial approximation (i.e. $x << f$, $y << f$), the reduct of this term is $-i\frac{\pi z}{\lambda f^2}(x^2+y^2)=-i\frac{kz}{2f^2}(x^2+y^2)$.
 
-**p.s.** Another perspective from geometric optics: $ cos(\theta\_z) = 1-sin(\theta\_z)^2\approx 1 - tan(\theta\_z)^2 = 1 - \frac{x^2+y^2}{f^2}$, where $(x,y)$ is the spatial coordiante at the fourier plane (rear-focal plane). Here we consider the chief ray that passes through the center of the lens.
+**p.s.** Another perspective from geometric optics: $cos(\theta_z) = 1-sin(\theta_z)^2\approx 1 - tan(\theta_z)^2 = 1 - \frac{x^2+y^2}{f^2}$, where $(x,y)$ is the spatial coordiante at the fourier plane (rear-focal plane). Here we consider the chief ray that passes through the center of the lens.
 
-This indicates that, if we look at the wavefront at the fore-focal plane ($z=f$) $E\_0$ and the wavefront right before the lens $E\_1$, they have a relation that $\mathscr{F}(E\_1)=\mathscr{F}(E\_0)_exp(-i_\frac{k}{2f}\*(x^2+y^2))$, where $(x,y)$ is the spatial coordiante at the fourier plane (rear-focal plane).
+This indicates that, if we look at the wavefront at the fore-focal plane ($z=f$) $E_0$ and the wavefront right before the lens $E_1$, they have a relation that $\mathscr{F}(E_1)=\mathscr{F}(E_0)exp(-i\frac{k}{2f}*(x^2+y^2))$, where $(x,y)$ is the spatial coordiante at the fourier plane (rear-focal plane).
 
 Let's input this into the equation we derived for wavefront propagation from right before the lens to the rear-focal plane. We will get:
 
