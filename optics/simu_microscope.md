@@ -172,7 +172,7 @@ where $R$ is the radius of aperture.
 **Note that it's important to fullfill the sampling criterion:**
 
 $$
-F/\# = f/D >= \frac{dx}{\lambda}
+F num = f/D >= \frac{dx}{\lambda}
 $$
 
 where $D$ is the diameter of the lens aperture and $dx$ is the sampling step size. This criterion indicates that **large sampling number**, finer sampling step size should be used to simulate small F number lens.
