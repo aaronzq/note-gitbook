@@ -88,7 +88,7 @@ x2 = dx2*[ ceil(-N/2):ceil(N/2)-1 ];
 end
 ```
 
-1.  Fresnel Impulse Response (IR) Propagator
+3.  Fresnel Impulse Response (IR) Propagator
 
     $$
     E_2 (x,y) = \mathscr{F}^{-1}(\mathscr{F}( E_1(x,y) \mathscr{F}(h(x,y))   )   )
