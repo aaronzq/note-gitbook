@@ -98,9 +98,11 @@ We can have a pair of polarizers and place the scattering medium in between. Fir
 $$
 I_1 = I_B+0.5*I_{NB}
 $$
+
 $$
 I_2 = 0+0.5*I_{NB}
 $$
+
 $$
 I = I_1-I_2
 $$
