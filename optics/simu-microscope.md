@@ -16,7 +16,7 @@ $$
 = \frac{exp(ikz_1 )}{i\lambda z_1}exp(\frac{ik}{2z_1}(x_2^2+y_2^2))\mathscr{F}( E_1(x_1,y_1) exp(\frac{ik}{2z_1}(x_1^2+y_1^2)))_{u=\frac{x_2 }{\lambda z_1},v=\frac{y_2 }{\lambda z_1}}
 $$
 
-Where $$k=\frac{2\pi}{\lambda}$$. Due to the existence of $exp(\frac{ik}{2z\_1}(x\_1^2+y\_1^2)$ in the fourier transform, the diffraction pattern is dependent on the propogation distance. There are ways to numerically compute the pattern:
+Where $k=\frac{2\pi}{\lambda}$. Due to the existence of $exp(\frac{ik}{2z\_1}(x\_1^2+y\_1^2)$ in the fourier transform, the diffraction pattern is dependent on the propogation distance. There are ways to numerically compute the pattern:
 
 1.  Dumb calculation by hand-written integral using the formula
 
