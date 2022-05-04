@@ -17,6 +17,10 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
@@ -355,12 +359,25 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.7.1" data-path="../optics/simu_microscope.html">
+        <li class="chapter " data-level="1.7.1" data-path="../optics/simu-microscope.html">
             
-                <a href="../optics/simu_microscope.html">
+                <a href="../optics/simu-microscope.html">
             
                     
                     [Simulation] A microscope
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../optics/richardson-lucy-deconvolution.html">
+            
+                <a href="../optics/richardson-lucy-deconvolution.html">
+            
+                    
+                    Richardson-Lucy Deconvolution
             
                 </a>
             
@@ -419,8 +436,8 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="basics">Basics</h1>
-<h3 id="args-and-kwargs">*args and **kwargs</h3>
-<p>These two are used in function definition where the number of variables input by users is unknown. <strong>*args</strong> for non-keyworded and <strong>**kwargs</strong> for key-worded. <em>Note: the naming <strong>args</strong> and <strong>kwargs</strong> are not necessary but under convention.</em> </p>
+<h2 id="args-and-kwargs">*args and **kwargs</h2>
+<p>These two are used in function definition where the number of variables input by users is unknown. <strong>*args</strong> for non-keyworded and <strong>**kwargs</strong> for key-worded. <em>Note: the naming <strong>args</strong> and <strong>kwargs</strong> are not necessary but under convention.</em></p>
 <pre><code class="lang-python">def adder(*args):
     print(args)
     print(type(args))
@@ -449,11 +466,11 @@ output:
 &gt; num3==3
 &gt; 6
 </code></pre>
-<h3 id="decorator">Decorator</h3>
+<h2 id="decorator">Decorator</h2>
 <p><a href="https://wiki.jikexueyuan.com/project/interpy-zh/decorators/your\_first\_decorator.html" target="_blank">https://wiki.jikexueyuan.com/project/interpy-zh/decorators/your_first_decorator.html</a></p>
 <p>todo: write my own version of note after really using the decorator</p>
-<h3 id="variable-scope-between-different-scripts">Variable scope between different scripts</h3>
-<p>If you define a variable in one script, we can access it by import this variable from that script. But when we alter the value of that varible, it actually creates a new variable in the current script without changing the original one. </p>
+<h2 id="variable-scope-between-different-scripts">Variable scope between different scripts</h2>
+<p>If you define a variable in one script, we can access it by import this variable from that script. But when we alter the value of that varible, it actually creates a new variable in the current script without changing the original one.</p>
 <pre><code class="lang-python">% file one: config.py - create the variable
 a = <span class="hljs-number">10</span>
 b = {<span class="hljs-string">&apos;para1&apos;</span>: <span class="hljs-number">20</span>,<span class="hljs-string">&apos;para2&apos;</span>: <span class="hljs-number">30</span>}
@@ -550,7 +567,7 @@ after editting <span class="hljs-keyword">in</span> main.py
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"Useful python tricks","title":"Basics","level":"1.5.1","depth":2,"next":{"title":"Taichi","level":"1.5.2","depth":2,"path":"python-notes/taichi.md","ref":"python-notes/taichi.md","articles":[]},"previous":{"title":"Python Notes","level":"1.5","depth":1,"path":"python-notes/README.md","ref":"python-notes/README.md","articles":[{"title":"Basics","level":"1.5.1","depth":2,"path":"python-notes/basics.md","ref":"python-notes/basics.md","articles":[]},{"title":"Taichi","level":"1.5.2","depth":2,"path":"python-notes/taichi.md","ref":"python-notes/taichi.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python-notes/basics.md","mtime":"2021-05-09T19:55:54.030Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-12T05:08:42.470Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"Useful python tricks","title":"Basics","level":"1.5.1","depth":2,"next":{"title":"Taichi","level":"1.5.2","depth":2,"path":"python-notes/taichi.md","ref":"python-notes/taichi.md","articles":[]},"previous":{"title":"Python Notes","level":"1.5","depth":1,"path":"python-notes/README.md","ref":"python-notes/README.md","articles":[{"title":"Basics","level":"1.5.1","depth":2,"path":"python-notes/basics.md","ref":"python-notes/basics.md","articles":[]},{"title":"Taichi","level":"1.5.2","depth":2,"path":"python-notes/taichi.md","ref":"python-notes/taichi.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["katex","livereload"],"pluginsConfig":{"katex":{},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python-notes/basics.md","mtime":"2022-05-03T22:53:02.393Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-04T03:14:18.977Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -558,6 +575,10 @@ after editting <span class="hljs-keyword">in</span> main.py
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

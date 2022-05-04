@@ -17,6 +17,10 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
@@ -57,7 +61,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="simu_microscope.html" />
+    <link rel="next" href="simu-microscope.html" />
     
     
     <link rel="prev" href="../gibberish/PR-projects.html" />
@@ -355,12 +359,25 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.7.1" data-path="simu_microscope.html">
+        <li class="chapter " data-level="1.7.1" data-path="simu-microscope.html">
             
-                <a href="simu_microscope.html">
+                <a href="simu-microscope.html">
             
                     
                     [Simulation] A microscope
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="richardson-lucy-deconvolution.html">
+            
+                <a href="richardson-lucy-deconvolution.html">
+            
+                    
+                    Richardson-Lucy Deconvolution
             
                 </a>
             
@@ -419,6 +436,17 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="optics">Optics</h1>
+<h2 id="some-notes-about-incoherent-imaging-simulation">Some notes about incoherent imaging simulation</h2>
+<p>The diffraction model takes a complex wavefront and outputs another complex wavefront. For the input in our PSF calculation experiment, we set the mid of the FOV as 1 and the rest of pixels as 0. For the final image on the sensor, we take the square of the amplitude, i.e. the absolute value of the wavefront.</p>
+<p>We call it incoherent imaging system. But we actually didn&apos;t introduce any incoherent factors. Is it correct?</p>
+<p>This only works when we compute PSF, which is one single point in the object space, because a single point has no coherence concept: you can set any phase to it, and there&apos;s no second point to study their correlation. But this will not work (at least not work &apos;theoretically correctly&apos;) in multiple objects, such as the background.</p>
+<p>Let&apos;s assume we have a system consisting of an Objective and a microlens array behind the Objective. How to simulate an uniform background? If we have a constant value (constant amplitude and 0 phase term) for the entire FOV, the frequency component of this constant value will be concentuated at the center of the aperture plane. But unfortunately, let&apos;s say we don&apos;t have a lenslet at the center aperture and therefore this component is completely lost after the microlens array.</p>
+<p>This is not the case in real experiment. In incoherent light field imaging, the background will still pass the system, which indicates the input wavefront is not simply a plane wave with identical amplitude and phase. If they are illuminated by an incoherent light source, they should have uncorrelated phase component: we should generate random phase for each point at different position. Repeat this for hundreds times (the more, the better) and add them up to simulate incoherent imaging.</p>
+<p>This is especially true in full field OCT-LIFT simulaiton. For the wavefront from reference arm, we should not simply set it to be a planar wave. In real system we use a wide-band LED light source. And for each position in the FOV, there are no correlation in the phase (while the intensity can be assumed to be uniform).</p>
+<h2 id="some-notes-about-coherence">Some notes about coherence</h2>
+<p><strong>Spatial coherent</strong>: The extent of distance (usually talking about two points on one plane) that the wavefronts at two places are correlated. In most case, if we say the illumination is spatially coherent, the illumination light can be converged into an ideal point. For example, the light filtered by a pinhole can be a spatially-coherent light. Imaging system like scanning-based OCT (rather than full field OCT) and confocal microscope should use spatially-coherent light source.</p>
+<p>p.s. To use a lens to focus a light bulb cannot generate spatially-coherent light because the smallest size of the focused light is larger than the image of the light bulb.</p>
+<p><strong>Temporally coherent</strong>: The extent of time (or propagation distance) that the wavefronts are correlated. This is the coherence related to the spectral width of light. White light has very low temporally coherence and thus short coherent length. Therefore it provides the Fourier OCT system the ability of optical sectioning.</p>
 
                                 
                                 </section>
@@ -451,7 +479,7 @@
                 </a>
                 
                 
-                <a href="simu_microscope.html" class="navigation navigation-next " aria-label="Next page: [Simulation] A microscope">
+                <a href="simu-microscope.html" class="navigation navigation-next " aria-label="Next page: [Simulation] A microscope">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -462,7 +490,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Optics","level":"1.7","depth":1,"next":{"title":"[Simulation] A microscope","level":"1.7.1","depth":2,"path":"optics/simu_microscope.md","ref":"optics/simu_microscope.md","articles":[]},"previous":{"title":"PR projects","level":"1.6.4","depth":2,"path":"gibberish/PR-projects.md","ref":"gibberish/PR-projects.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"optics/README.md","mtime":"2021-07-12T01:29:50.017Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-12T05:08:42.470Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Optics","level":"1.7","depth":1,"next":{"title":"[Simulation] A microscope","level":"1.7.1","depth":2,"path":"optics/simu-microscope.md","ref":"optics/simu-microscope.md","articles":[]},"previous":{"title":"PR projects","level":"1.6.4","depth":2,"path":"gibberish/PR-projects.md","ref":"gibberish/PR-projects.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["katex","livereload"],"pluginsConfig":{"katex":{},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"optics/README.md","mtime":"2022-05-03T22:53:02.393Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-04T03:14:18.977Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -470,6 +498,10 @@
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

@@ -1,6 +1,6 @@
 # Standard Library
 
-## Standard stream input and output 
+## Standard stream input and output&#x20;
 
 ```cpp
 #include <iostream>
@@ -25,10 +25,10 @@ int main()
 }
 ```
 
- `std::cin >> v` discards any whitespace in the standard input stream, then reads from the standard input into variable `v` It returns `std::cin` , which has type `istream` , in order to allow chained input operations.  
+&#x20;`std::cin >> v` discards any whitespace in the standard input stream, then reads from the standard input into variable `v` It returns `std::cin` , which has type `istream` , in order to allow chained input operations.\
 `std::cout << v` returns `std::cout` with type `ostream` .
 
-  
+&#x20;&#x20;
 
 ## Pass the variable as reference
 
@@ -68,11 +68,11 @@ void polarToCartesian(double rho, double theta, double& x, double& y)
 
 ```
 
-Often used when you need to return more than 1 variables in the function, but C++ doesn't allow you to do that. So you can pass the references of the variable you want to edit. 
+Often used when you need to return more than 1 variables in the function, but C++ doesn't allow you to do that. So you can pass the references of the variable you want to edit.&#x20;
 
-Define the parameter in the function as `double& x` and x will be a new name for any external variable you pass in. 
+Define the parameter in the function as `double& x` and x will be a new name for any external variable you pass in.&#x20;
 
- **Array** is passed to function as reference intrinsically.  **Pointer** is not\([https://www.geeksforgeeks.org/passing-reference-to-a-pointer-in-c/](https://www.geeksforgeeks.org/passing-reference-to-a-pointer-in-c/)\). But using the pointer you can edit the value in that memory position. 
+&#x20;**Array** is passed to function as reference intrinsically.  **Pointer** is not([https://www.geeksforgeeks.org/passing-reference-to-a-pointer-in-c/](https://www.geeksforgeeks.org/passing-reference-to-a-pointer-in-c/)). But using the pointer you can edit the value in that memory position.&#x20;
 
 ## Array 1D
 
@@ -236,7 +236,7 @@ int multiplexAttendance[16][5][7];
 void f(int b[][5][7],...);
 ```
 
-## Char and String \(revisit for C-string, char array\)
+## Char and String (revisit for C-string, char array)
 
 ```cpp
 int k = 97;
@@ -279,7 +279,7 @@ s1 < "help"; //ture
 
 ```
 
-C++ is compatible with C. But C uses a different library for the string. How does C deal with string? 
+C++ is compatible with C. But C uses a different library for the string. How does C deal with string?&#x20;
 
 ```c
 /*
@@ -360,8 +360,8 @@ void makeUppercase(char s[])
 
 ## Pointer
 
-Const and pointer \([https://www.learncpp.com/cpp-tutorial/610-pointers-and-const/](https://www.learncpp.com/cpp-tutorial/610-pointers-and-const/)\)  
-`const char *p` implies that the variable it points to is constant, but the pointer itself is not. So  `*p = new value` is illegal while  `p = p + 1` is okay.
+Const and pointer ([https://www.learncpp.com/cpp-tutorial/610-pointers-and-const/](https://www.learncpp.com/cpp-tutorial/610-pointers-and-const/))\
+`const char *p` implies that the variable it points to is constant, but the pointer itself is not. So `*p = new value` is illegal while `p = p + 1` is okay.
 
 ## Class
 
@@ -475,19 +475,19 @@ int main()
 
 ## Iterator
 
-what is an iterator? What does this concept refer to?[http://www.cplusplus.com/reference/iterator/\#:~:text=Iterator%20definitions,dereference%20\(%20\*%20\)%20operators\).](http://www.cplusplus.com/reference/iterator/#:~:text=Iterator%20definitions,dereference%20%28%20*%20%29%20operators%29.)
+what is an iterator? What does this concept refer to?[http://www.cplusplus.com/reference/iterator/#:\~:text=Iterator%20definitions,dereference%20(%20\*%20)%20operators).](http://www.cplusplus.com/reference/iterator/#:\~:text=Iterator%20definitions,dereference%20\(%20\*%20\)%20operators\).)
 
-An iterator is any object that, pointing to some element in a range of elements \(such as an array or a container\), has the ability to iterate through the elements of that range using a set of operators \(with at least the increment \(`++`\) and dereference \(`*`\) operators\).  
-  
-The most obvious form of iterator is a pointer: A pointer can point to elements in an array, and can iterate through them using the increment operator \(`++`\). But other kinds of iterators are possible. For example, each container type \(such as a list\) has a specific iterator type designed to iterate through its elements.
+An iterator is any object that, pointing to some element in a range of elements (such as an array or a container), has the ability to iterate through the elements of that range using a set of operators (with at least the increment (`++`) and dereference (`*`) operators).\
+\
+The most obvious form of iterator is a pointer: A pointer can point to elements in an array, and can iterate through them using the increment operator (`++`). But other kinds of iterators are possible. For example, each container type (such as a list) has a specific iterator type designed to iterate through its elements.
 
 Similar to pointer, a 'constant iterator' means the object this iterator points to cannot be modified.
 
-## Vector \(C++ STL\)
+## Vector (C++ STL)
 
 [https://www.geeksforgeeks.org/vector-in-cpp-stl/](https://www.geeksforgeeks.org/vector-in-cpp-stl/)
 
-In c++ standard libirary there's &lt;vector&gt; which defines vector. It's same as dynamic arrays with the ability to resize itself automatically when an element is inserted or deleted, with their storage being handled automatically by the container. 
+In c++ standard libirary there's \<vector> which defines vector. It's same as dynamic arrays with the ability to resize itself automatically when an element is inserted or deleted, with their storage being handled automatically by the container.&#x20;
 
 ## Enum
 
@@ -528,9 +528,9 @@ enum class Buffer
 };
 ```
 
-## argc and argv\[\]
+## argc and argv\[]
 
-To run program in command line and to give arguments.  
+To run program in command line and to give arguments.\
 [https://www.geeksforgeeks.org/command-line-arguments-in-c-cpp/](https://www.geeksforgeeks.org/command-line-arguments-in-c-cpp/)
 
 ```cpp
@@ -573,8 +573,7 @@ int main(int argc, char **argv)
 // ./xxx var1 var2 var3 
 ```
 
-`argc` : int, number of arguments input in the cmd. Note that the first argument will always be the executable filename.  
-`argv` : double pointer to char, a array of cstrings. Note thet `argv[0]` will be a string containing the executable filename. 
+`argc` : int, number of arguments input in the cmd. Note that the first argument will always be the executable filename.\
+`argv` : double pointer to char, a array of cstrings. Note thet `argv[0]` will be a string containing the executable filename.&#x20;
 
-In cstring, a char array is used for a single string. So for multiple variables \(multiple strings\), we need a double pointer. 
-
+In cstring, a char array is used for a single string. So for multiple variables (multiple strings), we need a double pointer.&#x20;

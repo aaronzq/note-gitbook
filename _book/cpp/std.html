@@ -17,6 +17,10 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
@@ -355,12 +359,25 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.7.1" data-path="../optics/simu_microscope.html">
+        <li class="chapter " data-level="1.7.1" data-path="../optics/simu-microscope.html">
             
-                <a href="../optics/simu_microscope.html">
+                <a href="../optics/simu-microscope.html">
             
                     
                     [Simulation] A microscope
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../optics/richardson-lucy-deconvolution.html">
+            
+                <a href="../optics/richardson-lucy-deconvolution.html">
+            
+                    
+                    Richardson-Lucy Deconvolution
             
                 </a>
             
@@ -419,7 +436,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="standard-library">Standard Library</h1>
-<h2 id="standard-stream-input-and-output">Standard stream input and output</h2>
+<h2 id="standard-stream-input-and-output-">Standard stream input and output </h2>
 <pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
 
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
@@ -441,7 +458,9 @@
 
 }
 </code></pre>
-<p> <code>std::cin &gt;&gt; v</code> discards any whitespace in the standard input stream, then reads from the standard input into variable <code>v</code> It returns <code>std::cin</code> , which has type <code>istream</code> , in order to allow chained input operations.<br><code>std::cout &lt;&lt; v</code> returns <code>std::cout</code> with type <code>ostream</code> .</p>
+<p> <code>std::cin &gt;&gt; v</code> discards any whitespace in the standard input stream, then reads from the standard input into variable <code>v</code> It returns <code>std::cin</code> , which has type <code>istream</code> , in order to allow chained input operations.\
+<code>std::cout &lt;&lt; v</code> returns <code>std::cout</code> with type <code>ostream</code> .</p>
+<p>  </p>
 <h2 id="pass-the-variable-as-reference">Pass the variable as reference</h2>
 <pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span>
@@ -725,7 +744,8 @@ void makeUppercase(char s[])
 }
 </code></pre>
 <h2 id="pointer">Pointer</h2>
-<p>Const and pointer (<a href="https://www.learncpp.com/cpp-tutorial/610-pointers-and-const/" target="_blank">https://www.learncpp.com/cpp-tutorial/610-pointers-and-const/</a>)<br><code>const char *p</code> implies that the variable it points to is constant, but the pointer itself is not. So  <code>*p = new value</code> is illegal while  <code>p = p + 1</code> is okay.</p>
+<p>Const and pointer (<a href="https://www.learncpp.com/cpp-tutorial/610-pointers-and-const/" target="_blank">https://www.learncpp.com/cpp-tutorial/610-pointers-and-const/</a>)\
+<code>const char *p</code> implies that the variable it points to is constant, but the pointer itself is not. So <code>*p = new value</code> is illegal while <code>p = p + 1</code> is okay.</p>
 <h2 id="class">Class</h2>
 <pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span>
@@ -832,13 +852,14 @@ Pet::Pet(<span class="hljs-built_in">string</span> nm, <span class="hljs-keyword
 }
 </code></pre>
 <h2 id="iterator">Iterator</h2>
-<p>what is an iterator? What does this concept refer to?<a href="http://www.cplusplus.com/reference/iterator/#:~:text=Iterator%20definitions,dereference%20%28%20*%20%29%20operators%29." target="_blank">http://www.cplusplus.com/reference/iterator/#:~:text=Iterator%20definitions,dereference%20(%20*%20)%20operators).</a></p>
-<p>An iterator is any object that, pointing to some element in a range of elements (such as an array or a container), has the ability to iterate through the elements of that range using a set of operators (with at least the increment (<code>++</code>) and dereference (<code>*</code>) operators).  </p>
-<p>The most obvious form of iterator is a pointer: A pointer can point to elements in an array, and can iterate through them using the increment operator (<code>++</code>). But other kinds of iterators are possible. For example, each container type (such as a list) has a specific iterator type designed to iterate through its elements.</p>
+<p>what is an iterator? What does this concept refer to?<a href="http://www.cplusplus.com/reference/iterator/#:\~:text=Iterator%20definitions,dereference%20\(%20\*%20\" target="_blank">http://www.cplusplus.com/reference/iterator/#:~:text=Iterator%20definitions,dereference%20(%20*%20)%20operators).</a>%20operators).)</p>
+<p>An iterator is any object that, pointing to some element in a range of elements (such as an array or a container), has the ability to iterate through the elements of that range using a set of operators (with at least the increment (<code>++</code>) and dereference (<code>*</code>) operators).\
+\
+The most obvious form of iterator is a pointer: A pointer can point to elements in an array, and can iterate through them using the increment operator (<code>++</code>). But other kinds of iterators are possible. For example, each container type (such as a list) has a specific iterator type designed to iterate through its elements.</p>
 <p>Similar to pointer, a &apos;constant iterator&apos; means the object this iterator points to cannot be modified.</p>
 <h2 id="vector-c-stl">Vector (C++ STL)</h2>
 <p><a href="https://www.geeksforgeeks.org/vector-in-cpp-stl/" target="_blank">https://www.geeksforgeeks.org/vector-in-cpp-stl/</a></p>
-<p>In c++ standard libirary there&apos;s &lt;vector&gt; which defines vector. It&apos;s same as dynamic arrays with the ability to resize itself automatically when an element is inserted or deleted, with their storage being handled automatically by the container. </p>
+<p>In c++ standard libirary there&apos;s \<vector> which defines vector. It&apos;s same as dynamic arrays with the ability to resize itself automatically when an element is inserted or deleted, with their storage being handled automatically by the container. </vector></p>
 <h2 id="enum">Enum</h2>
 <p>Enumeration type. <a href="https://en.cppreference.com/w/cpp/language/enum" target="_blank">https://en.cppreference.com/w/cpp/language/enum</a></p>
 <h4 id="unscoped-enumeration">Unscoped enumeration</h4>
@@ -871,7 +892,8 @@ Pet::Pet(<span class="hljs-built_in">string</span> nm, <span class="hljs-keyword
 };
 </code></pre>
 <h2 id="argc-and-argv">argc and argv[]</h2>
-<p>To run program in command line and to give arguments.<br><a href="https://www.geeksforgeeks.org/command-line-arguments-in-c-cpp/" target="_blank">https://www.geeksforgeeks.org/command-line-arguments-in-c-cpp/</a></p>
+<p>To run program in command line and to give arguments.\
+<a href="https://www.geeksforgeeks.org/command-line-arguments-in-c-cpp/" target="_blank">https://www.geeksforgeeks.org/command-line-arguments-in-c-cpp/</a></p>
 <pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span>
 </span>{
 
@@ -910,7 +932,8 @@ Pet::Pet(<span class="hljs-built_in">string</span> nm, <span class="hljs-keyword
 <span class="hljs-comment">// in cmd</span>
 <span class="hljs-comment">// ./xxx var1 var2 var3</span>
 </code></pre>
-<p><code>argc</code> : int, number of arguments input in the cmd. Note that the first argument will always be the executable filename.<br><code>argv</code> : double pointer to char, a array of cstrings. Note thet <code>argv[0]</code> will be a string containing the executable filename. </p>
+<p><code>argc</code> : int, number of arguments input in the cmd. Note that the first argument will always be the executable filename.\
+<code>argv</code> : double pointer to char, a array of cstrings. Note thet <code>argv[0]</code> will be a string containing the executable filename. </p>
 <p>In cstring, a char array is used for a single string. So for multiple variables (multiple strings), we need a double pointer. </p>
 
                                 
@@ -955,7 +978,7 @@ Pet::Pet(<span class="hljs-built_in">string</span> nm, <span class="hljs-keyword
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Standard Library","level":"1.4.1","depth":2,"next":{"title":"Algorithms","level":"1.4.2","depth":2,"path":"cpp/alg.md","ref":"cpp/alg.md","articles":[]},"previous":{"title":"C++ Notes","level":"1.4","depth":1,"path":"cpp/README.md","ref":"cpp/README.md","articles":[{"title":"Standard Library","level":"1.4.1","depth":2,"path":"cpp/std.md","ref":"cpp/std.md","articles":[]},{"title":"Algorithms","level":"1.4.2","depth":2,"path":"cpp/alg.md","ref":"cpp/alg.md","articles":[]},{"title":"Algorithms2","level":"1.4.3","depth":2,"path":"cpp/alg2.md","ref":"cpp/alg2.md","articles":[]},{"title":"Eigen","level":"1.4.4","depth":2,"path":"cpp/eigen.md","ref":"cpp/eigen.md","articles":[]},{"title":"gcc, g++, make, cmake","level":"1.4.5","depth":2,"path":"cpp/gcc-g++-make-cmake.md","ref":"cpp/gcc-g++-make-cmake.md","articles":[]},{"title":"Compile, Link","level":"1.4.6","depth":2,"path":"cpp/compile-link.md","ref":"cpp/compile-link.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"cpp/std.md","mtime":"2021-05-09T19:59:27.143Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-12T05:08:42.470Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Standard Library","level":"1.4.1","depth":2,"next":{"title":"Algorithms","level":"1.4.2","depth":2,"path":"cpp/alg.md","ref":"cpp/alg.md","articles":[]},"previous":{"title":"C++ Notes","level":"1.4","depth":1,"path":"cpp/README.md","ref":"cpp/README.md","articles":[{"title":"Standard Library","level":"1.4.1","depth":2,"path":"cpp/std.md","ref":"cpp/std.md","articles":[]},{"title":"Algorithms","level":"1.4.2","depth":2,"path":"cpp/alg.md","ref":"cpp/alg.md","articles":[]},{"title":"Algorithms2","level":"1.4.3","depth":2,"path":"cpp/alg2.md","ref":"cpp/alg2.md","articles":[]},{"title":"Eigen","level":"1.4.4","depth":2,"path":"cpp/eigen.md","ref":"cpp/eigen.md","articles":[]},{"title":"gcc, g++, make, cmake","level":"1.4.5","depth":2,"path":"cpp/gcc-g++-make-cmake.md","ref":"cpp/gcc-g++-make-cmake.md","articles":[]},{"title":"Compile, Link","level":"1.4.6","depth":2,"path":"cpp/compile-link.md","ref":"cpp/compile-link.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["katex","livereload"],"pluginsConfig":{"katex":{},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"cpp/std.md","mtime":"2022-05-03T22:53:02.393Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-04T03:14:18.977Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -963,6 +986,10 @@ Pet::Pet(<span class="hljs-built_in">string</span> nm, <span class="hljs-keyword
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

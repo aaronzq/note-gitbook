@@ -19,5 +19,5 @@
   * [Internet protocal](gibberish/internet-protocal.md)
   * [PR projects](gibberish/PR-projects.md)
 * [Optics](optics/README.md)
-  * [\[Simulation\] A microscope](optics/simu\_microscope.md)
+  * [\[Simulation\] A microscope](optics/simu-microscope.md)
   * [Richardson-Lucy Deconvolution](optics/richardson-lucy-deconvolution.md)

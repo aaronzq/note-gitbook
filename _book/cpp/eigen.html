@@ -17,6 +17,10 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
@@ -355,12 +359,25 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.7.1" data-path="../optics/simu_microscope.html">
+        <li class="chapter " data-level="1.7.1" data-path="../optics/simu-microscope.html">
             
-                <a href="../optics/simu_microscope.html">
+                <a href="../optics/simu-microscope.html">
             
                     
                     [Simulation] A microscope
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../optics/richardson-lucy-deconvolution.html">
+            
+                <a href="../optics/richardson-lucy-deconvolution.html">
+            
+                    
+                    Richardson-Lucy Deconvolution
             
                 </a>
             
@@ -421,12 +438,12 @@
                                 <h1 id="eigen">Eigen</h1>
 <h2 id="install">Install</h2>
 <p><a href="https://phylogeny.uconn.edu/tutorial-v2/part-1-ide-project-v2/setting-up-the-eigen-library-v2/" target="_blank">Installation</a></p>
-<h4 id="windows">WINDOWS</h4>
+<h3 id="windows">WINDOWS</h3>
 <ol>
-<li>Download the latest stable release of <a href="http://eigen.tuxfamily.org/" target="_blank">Eigen 3</a></li>
+<li>Download the latest stable release of <a href="http://eigen.tuxfamily.org" target="_blank">Eigen 3</a></li>
 <li>Unpack the downloaded zip or tar.gz file to your <em>This PC\Documents\libraries</em> directory</li>
 <li>Right-click the project (note: click the project, not the solution) in the Solution Explorer pane of Visual Studio and choose <em>Properties</em> from the popup menu.</li>
-<li>Expand <em>VC++ Directories</em>, then click on <em>Include Directories</em>, then click the down-pointing triangle, then click <em>&lt;Edit&#x2026;&gt;</em> and add <em>This PC\Documents\libraries\eigen3</em>.</li>
+<li>Expand <em>VC++ Directories</em>, then click on <em>Include Directories</em>, then click the down-pointing triangle, then click <em>\<edit…></edit…></em> and add <em>This PC\Documents\libraries\eigen3</em>.</li>
 <li>The Eigen library comprises only header files. Because nothing is compiled, there is no need to specify a library search path and no need to link any libraries.</li>
 </ol>
 <h2 id="basics">Basics</h2>
@@ -484,26 +501,26 @@
 }
 </code></pre>
 <h2 id="solve-linear-system">Solve linear system</h2>
-<p>$$
-Ax = b</p>
-<p>$$</p>
-<p>Easiest way to solve x is to call </p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>x</mi><mo>=</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">
+Ax = b
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">A</span><span class="mord mathit">x</span><span class="mrel">=</span><span class="mord mathit">b</span></span></span></span></p>
+<p>Easiest way to solve x is to call</p>
 <pre><code class="lang-cpp">x = A.inverse() * b;
 
 <span class="hljs-comment">// or </span>
 
 x = A.partialPivLU().solve(b);
 </code></pre>
-<p>This assumes A is an <strong>invertible</strong> matrix and it will use <strong>LU decomposition</strong> (<code>Eigen::PartialPivLU</code>) to solve the equation. This is helpful when solving simple linear equations. </p>
-<p>Check the video below how to do LU decomposition by hand. </p>
+<p>This assumes A is an <strong>invertible</strong> matrix and it will use <strong>LU decomposition</strong> (<code>Eigen::PartialPivLU</code>) to solve the equation. This is helpful when solving simple linear equations.</p>
+<p>Check the video below how to do LU decomposition by hand.</p>
 <p><a href="https://www.youtube.com/watch?v=MsIvs\_6vC38" target="_blank">Video 1</a></p>
 <p><a href="https://www.youtube.com/watch?v=m3EojSAgIao" target="_blank">Video 2</a></p>
-<p>Besides the <code>inverse()</code> and <code>partialPivLu()</code>method, the whole list of decomposition methods (to solve linear system) is at </p>
+<p>Besides the <code>inverse()</code> and <code>partialPivLu()</code>method, the whole list of decomposition methods (to solve linear system) is at</p>
 <p><a href="https://eigen.tuxfamily.org/dox/group\_\_TutorialLinearAlgebra.html" target="_blank">Reference</a></p>
 <p>Especially for <strong>least square</strong>, one approach is to solve the normal equation below:</p>
-<p>$$
-A^TAx=A^Tb</p>
-<p>$$</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>A</mi><mi>T</mi></msup><mi>A</mi><mi>x</mi><mo>=</mo><msup><mi>A</mi><mi>T</mi></msup><mi>b</mi></mrow><annotation encoding="application/x-tex">
+A^TAx=A^Tb
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8413309999999999em;"></span><span class="strut bottom" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">A</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathit mtight" style="margin-right:0.13889em;">T</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mord mathit">A</span><span class="mord mathit">x</span><span class="mrel">=</span><span class="mord"><span class="mord mathit">A</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathit mtight" style="margin-right:0.13889em;">T</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mord mathit">b</span></span></span></span></p>
 <p>Since A^T*A is positive semidefinite, we can use <code>ldlt()</code> to solve. We can code:</p>
 <pre><code class="lang-cpp">MatrixXf A = MatrixXf::Random(<span class="hljs-number">3</span>, <span class="hljs-number">2</span>);
 VectorXf b = VectorXf::Random(<span class="hljs-number">3</span>);
@@ -552,7 +569,7 @@ VectorXf x = (A.transpose() * A).ldlt().solve(A.transpose() * b);
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"Eigen library for linear algebra in c++","title":"Eigen","level":"1.4.4","depth":2,"next":{"title":"gcc, g++, make, cmake","level":"1.4.5","depth":2,"path":"cpp/gcc-g++-make-cmake.md","ref":"cpp/gcc-g++-make-cmake.md","articles":[]},"previous":{"title":"Algorithms2","level":"1.4.3","depth":2,"path":"cpp/alg2.md","ref":"cpp/alg2.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"cpp/eigen.md","mtime":"2021-05-09T19:50:37.221Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-12T05:08:42.470Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"Eigen library for linear algebra in c++","title":"Eigen","level":"1.4.4","depth":2,"next":{"title":"gcc, g++, make, cmake","level":"1.4.5","depth":2,"path":"cpp/gcc-g++-make-cmake.md","ref":"cpp/gcc-g++-make-cmake.md","articles":[]},"previous":{"title":"Algorithms2","level":"1.4.3","depth":2,"path":"cpp/alg2.md","ref":"cpp/alg2.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["katex","livereload"],"pluginsConfig":{"katex":{},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"cpp/eigen.md","mtime":"2022-05-03T22:53:02.393Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-04T03:14:18.977Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -560,6 +577,10 @@ VectorXf x = (A.transpose() * A).ldlt().solve(A.transpose() * b);
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

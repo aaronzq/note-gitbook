@@ -17,6 +17,10 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
@@ -355,12 +359,25 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.7.1" data-path="../optics/simu_microscope.html">
+        <li class="chapter " data-level="1.7.1" data-path="../optics/simu-microscope.html">
             
-                <a href="../optics/simu_microscope.html">
+                <a href="../optics/simu-microscope.html">
             
                     
                     [Simulation] A microscope
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../optics/richardson-lucy-deconvolution.html">
+            
+                <a href="../optics/richardson-lucy-deconvolution.html">
+            
+                    
+                    Richardson-Lucy Deconvolution
             
                 </a>
             
@@ -431,14 +448,14 @@ ti.init(arch = ti.gpu) <span class="hljs-comment"># initialize taichi</span>
 <span class="hljs-comment"># arch = ti.cpu</span>
 </code></pre>
 <h2 id="data-type">Data type</h2>
-<p>Taichi supports:  </p>
-<ol>
-<li>int (ti.i8/i16/i32/i64)  </li>
-<li>uint (ti.u8/u16/u32/u64)  </li>
-<li>float (<strong>ti.f32</strong>/f64)  </li>
-</ol>
-<p>Float 32 is commonly used. OpenGL supports i32, f32 and f64.<br>Boolean types should be represented using ti.i32</p>
-<h3 id="tensor-tensors-are-global-variables-provided-by-taichi">Tensor: tensors are <em>global variables</em> provided by Taichi.</h3>
+<p>Taichi supports:\
+1. int (ti.i8/i16/i32/i64)\
+2. uint (ti.u8/u16/u32/u64)\
+3. float (<strong>ti.f32</strong>/f64)\
+\
+Float 32 is commonly used. OpenGL supports i32, f32 and f64.\
+Boolean types should be represented using ti.i32</p>
+<h3 id="tensor-tensors-are-global-variables-provided-by-taichi-">Tensor: tensors are <em>global variables</em> provided by Taichi. </h3>
 <p>Tensors can be either sparse or dense. An element of a tensor can be either a scalar or a vector/matrix.</p>
 <pre><code class="lang-python">a = ti .var(dt=ti .f32 , shape=(<span class="hljs-number">42</span>, <span class="hljs-number">63</span>)) 
 <span class="hljs-comment"># A tensor of 42x63 scalars </span>
@@ -517,11 +534,9 @@ print(res)  <span class="hljs-comment"># 3, since return type is ti.i32</span>
                            t - <span class="hljs-number">2</span>, i, j] - c * alpha * dt * laplacian_p
 </code></pre>
 <h3 id="for-loops">For loops</h3>
-<p>There are 2 types of for-loops:  </p>
-<ol>
-<li>Range-for loops  </li>
-<li>Struct-for loops</li>
-</ol>
+<p>There are 2 types of for-loops:\
+1. Range-for loops\
+2. Struct-for loops</p>
 <h4 id="range-for-loops">Range-for loops</h4>
 <pre><code class="lang-python"><span class="hljs-meta">@ti.kernel</span>
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fill</span><span class="hljs-params">()</span>:</span>
@@ -571,7 +586,8 @@ print(res)  <span class="hljs-comment"># 3, since return type is ti.i32</span>
         <span class="hljs-comment"># other threading</span>
 </code></pre>
 <h2 id="taichi-scope-and-python-scope">Taichi-scope and Python-scope</h2>
-<p>Kernel and function are inside Taichi-scope, compiled by Taichi compiler.<br>The others are in Python-scope</p>
+<p>Kernel and function are inside Taichi-scope, compiled by Taichi compiler.\
+The others are in Python-scope</p>
 <h2 id="templates">Templates</h2>
 <ol>
 <li>Initialization: ti.init(arch = ti.gpu)</li>
@@ -623,7 +639,7 @@ print(res)  <span class="hljs-comment"># 3, since return type is ti.i32</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Taichi","level":"1.5.2","depth":2,"next":{"title":"Gibberish","level":"1.6","depth":1,"path":"gibberish/README.md","ref":"gibberish/README.md","articles":[{"title":"Shadowsocks on Qcloud","level":"1.6.1","depth":2,"path":"gibberish/shadowsocks-on-qcloud.md","ref":"gibberish/shadowsocks-on-qcloud.md","articles":[]},{"title":"Chords","level":"1.6.2","depth":2,"path":"gibberish/chords.md","ref":"gibberish/chords.md","articles":[]},{"title":"Internet protocal","level":"1.6.3","depth":2,"path":"gibberish/internet-protocal.md","ref":"gibberish/internet-protocal.md","articles":[]},{"title":"PR projects","level":"1.6.4","depth":2,"path":"gibberish/PR-projects.md","ref":"gibberish/PR-projects.md","articles":[]}]},"previous":{"title":"Basics","level":"1.5.1","depth":2,"path":"python-notes/basics.md","ref":"python-notes/basics.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python-notes/taichi.md","mtime":"2021-05-09T19:41:11.946Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-12T05:08:42.470Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Taichi","level":"1.5.2","depth":2,"next":{"title":"Gibberish","level":"1.6","depth":1,"path":"gibberish/README.md","ref":"gibberish/README.md","articles":[{"title":"Shadowsocks on Qcloud","level":"1.6.1","depth":2,"path":"gibberish/shadowsocks-on-qcloud.md","ref":"gibberish/shadowsocks-on-qcloud.md","articles":[]},{"title":"Chords","level":"1.6.2","depth":2,"path":"gibberish/chords.md","ref":"gibberish/chords.md","articles":[]},{"title":"Internet protocal","level":"1.6.3","depth":2,"path":"gibberish/internet-protocal.md","ref":"gibberish/internet-protocal.md","articles":[]},{"title":"PR projects","level":"1.6.4","depth":2,"path":"gibberish/PR-projects.md","ref":"gibberish/PR-projects.md","articles":[]}]},"previous":{"title":"Basics","level":"1.5.1","depth":2,"path":"python-notes/basics.md","ref":"python-notes/basics.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["katex","livereload"],"pluginsConfig":{"katex":{},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python-notes/taichi.md","mtime":"2022-05-03T22:53:02.393Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-04T03:14:18.977Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -631,6 +647,10 @@ print(res)  <span class="hljs-comment"># 3, since return type is ti.i32</span>
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
