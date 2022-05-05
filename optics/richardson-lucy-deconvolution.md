@@ -38,6 +38,61 @@ This is the iterative scheme we are going to implement in the code. $m$ is what 
 
 ## Implement RL deconvolution in a simple image deblur task
 
+![cameraman](../assets/cameraman.jpg) 
+![blur kernel](../assets/gaussian_kernel.jpg)
+![cameraman_blur](../assets/cameraman_blur.jpg)
+
+A gaussian blur kernel 
+```
+img = imread('cameraman.tif');
+PSF = fspecial('gaussian', 51, 2);
+PSF = PSF ./ sum(PSF(:));
+img_blur = conv2(img, PSF, 'same');
+```
+
+```
+function [result, err] = RL_deconv(image, PSF, iters)    
+    err = zeros(1,iters);
+    image = double(image);
+    PSF = double(PSF);
+    PSF_hat = imrotate(PSF, 180);
+    Xguess = image;
+%     Xguess = ones(size(image));
+    for i = 1:iters        
+        HXguess = conv2(Xguess,PSF,'same');                %compute Hx      
+        error = image./HXguess;                            %compute m/(Hx)     
+        error(isnan(error)) = 0;error(isinf(error)) = 0;error(error < 0) = 0;
+        HTerror = conv2(error,PSF_hat,'same');             %compute Ht m/(Hx)
+        Xguess = Xguess.*HTerror;                          %update the estimate     
+        err(i) = mean(error(:));       
+    end
+    result = Xguess;
+end
+
+```
+![cameraman_deconv](../assets/cameraman_deconv.jpg)
+
+```
+function [result, err] = RL_deconv(image, PSF, iters)    
+    err = zeros(1,iters);
+    image = double(image);
+    PSF = double(PSF);
+    PSF_hat = imrotate(PSF, 180);
+    Xguess = image;
+%     Xguess = ones(size(image));
+    for i = 1:iters       
+        HXguess = conv2(Xguess,PSF,'same'); 
+        HTHXguess = conv2(HXguess, PSF_hat, 'same');
+        HTimage = conv2(image, PSF_hat, 'same');
+        error = HTimage ./ HTHXguess;
+        Xguess = Xguess .* error;        
+        err(i) = mean(error(:));       
+    end
+    result = Xguess;
+end
+```
+![cameraman_deconv2](../assets/cameraman_deconv2.jpg)
+
 [todo]
 
 ## Implement RL deconvolution in Fourier Light Field microscope, a shift-variant case
