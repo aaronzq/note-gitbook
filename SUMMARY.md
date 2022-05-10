@@ -21,4 +21,5 @@
 * [Optics](optics/README.md)
   * [\[Simulation\] A microscope](optics/simu-microscope.md)
   * [Richardson-Lucy Deconvolution](optics/richardson-lucy-deconvolution.md)
-  * [PSF and Ballistic imaging](optics/point-spread-function.md)
+  * [Ballistic imaging](optics/ballistic.md)
+  * [PSF and Resolution](optics/point-spread-function.md)
