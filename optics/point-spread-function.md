@@ -112,7 +112,7 @@ nsin(\alpha)=NA, \
 v = \frac{2\pi sin(\alpha)}{\lambda _0}r \ 
 $$
 
-where $ \rho $ is normalized radial coordinate at the pupil, which ranges in [0,1]. $ \alpha $ is the angle of the light cone entering the lens emitted from the object, which is associated with NA and regarded as constant due to a shallow depth of interest. $ r $ is the radius of the subject in FOV in polar coordiante.
+where $\rho$ is normalized radial coordinate at the pupil, which ranges in [0,1]. $\alpha$ is the angle of the light cone entering the lens emitted from the object, which is associated with NA and regarded as constant due to a shallow depth of interest. $ r $ is the radius of the subject in FOV in polar coordiante.
 
 ## Lateral PSF:
 
@@ -126,7 +126,7 @@ $$
 h(u, 0) = 2 \int exp(\frac{i}{2}u\rho^2))\rho d\rho
 =exp(iu/4)sinc(\frac{u}{4\pi})
 $$
-where $ sinc(x) = \frac{sin(\pi x)}{\pi x } $
+where $sinc(x) = \frac{sin(\pi x)}{\pi x }$
 
 ## 1. Wide-field imaging (which is incoherent):  
 $$
