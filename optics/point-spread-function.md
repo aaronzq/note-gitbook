@@ -149,18 +149,18 @@ $$
 
 ## Resolution:
 ### Rayleigh criterion:
-
-
+- Lateral: $0.61 \lambda / NA$
+- Axial: 
 
 ### Full Width at Half Maximum (FWHM): 
-#### Lateral: 
-- For confocal:  $0.37 \lambda / NA$
-- For wide-field:  $0.51 \lambda /NA$
+- Lateral: 
+    - For confocal:  $0.37 \lambda / NA$
+    - For wide-field:  $0.51 \lambda /NA$
 
-#### Axial: 
-- For confocal: $1.3 \lambda /NA^2$
-- For wide-field: $1.8 \lambda / NA^2 $ (for point objects only)
-
+- Axial: 
+    - For confocal: $1.3 \lambda /NA^2$
+    - For wide-field: $1.8 \lambda / NA^2 $ (for point objects only)
+- Ratio:
 $$
 \frac{Resolution(axial)}{Resolution(lateral)} = \frac{3.6}{NA}
 $$
