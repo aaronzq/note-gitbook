@@ -86,17 +86,21 @@ $$
     - point object: axial resolution is provided
     - planar object: axial resolution is NOT provided
 
+    P.S. Honestly I don't fully understand the difference between a point and planar object here but I don't think it's important. Normally we will quantify the spatial resolution using sub-diffraction point object in microscopy field.
+
 # Confocal microscope
-Illumination: only one point is illuminated at a time
+## Illumination:
+Only one point is illuminated at a time. Rasterized scan.
 
-Detection: a pinhole is used and positioned at the conjugate plan e of illuminated object
+## Detection: 
+A pinhole is used and positioned at the conjugate plan of the illuminated object to minimize the out of focus light.
 
-Resolution:
+## Resolution:
 
-1. lateral resolution: provided by both illumination (because the illumination only focus on one point) and detection optics
-2. axial resolution: is always provided for both point and planar objects
+1. lateral resolution: Provided by both illumination (because the illumination is not uniform but with structure) and detection optics
+2. axial resolution: Provided for both point and planar objects 
 
-# PSF of Lens
+# PSF of a Lens
 It can be computed by the Hankel function.
 $$
 h(u,v) = 2 \int exp(\frac{i}{2}u\rho^2)J_0(\rho v)\rho d\rho
@@ -108,7 +112,7 @@ nsin(\alpha)=NA, \
 v = \frac{2\pi sin(\alpha)}{\lambda _0}r \ 
 $$
 
-where $ \rho $ : normalized radial coordinate at the pipil range in [0,1], and $ \alpha $ is the angle of the light cone entering the lens emitted from the object, $ r $ is the  
+where $ \rho $ is normalized radial coordinate at the pupil, which ranges in [0,1]. $ \alpha $ is the angle of the light cone entering the lens emitted from the object, which is associated with NA and regarded as constant due to a shallow depth of interest. $ r $ is the radius of the subject in FOV in polar coordiante.
 
 ## Lateral PSF:
 
@@ -124,7 +128,10 @@ h(u, 0) = 2 \int exp(\frac{i}{2}u\rho^2))\rho d\rho
 $$
 where $ sinc(x) = \frac{sin(\pi x)}{\pi x } $
 
-## Wide-field imaging (which is incoherent):  
+## 1. Wide-field imaging (which is incoherent):  
+$$
+PSF = |h_{detection}|^2
+$$
 ### Lateral PSF
 $$
 PSF = |h(0,v)|^2=4(\frac{J_1(v)}{v})^2
@@ -134,10 +141,17 @@ $$
 PSF = |h(u,0)|^2 = sinc^2(\frac{u}{4\pi })
 $$
 
-## Confocal imaging (which is incoherent):
+## 2. Confocal imaging (which is incoherent):
+$$
+PSF = |h_{illumination} \cdot h_{detection}|^2
+$$
+Here we simplify it by taking same function for both illumination and detection.
+$$
+PSF = |h|^4
+$$
 ### Lateral PSF
 $$
-PSF = |h(0,v)|^2=16(\frac{J_1(v)}{v})^4
+PSF = |h(0,v)|^4=16(\frac{J_1(v)}{v})^4
 $$
 ### Axial PSF
 $$
@@ -147,25 +161,25 @@ $$
 
 
 
-## Resolution:
-### Rayleigh criterion:
+## 3. Resolution quantification:
+### 1. Rayleigh criterion:
 - Lateral: $0.61 \lambda / NA$
-- Axial: $4 \lambda /NA^2$
+- Axial: $2 \lambda /NA^2$
 
-### Full Width at Half Maximum (FWHM): 
+### 2. Full Width at Half Maximum (FWHM): 
 - Lateral: 
-    - For confocal:  $0.37 \lambda / NA$
-    - For wide-field:  $0.51 \lambda /NA$
+    - For __confocal__:  $0.37 \lambda / NA$
+    - For __wide-field__:  $0.51 \lambda /NA$
 
 - Axial: 
-    - For confocal: $1.3 \lambda /NA^2$
-    - For wide-field: $1.8 \lambda / NA^2$ (for point objects only)
+    - For __confocal__: $1.3 \lambda /NA^2$
+    - For __wide-field__: $1.8 \lambda / NA^2$ (for point objects only)
 - Ratio:
 $$
 \frac{Resolution(axial)}{Resolution(lateral)} = \frac{3.6}{NA}
 $$
 
-## Image formation in coherent and incoherent imaging
+# Image formation in coherent and incoherent imaging
 ### Coherent imaging:
 $$
 I_c = |f*h|^2
