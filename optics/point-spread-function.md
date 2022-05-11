@@ -64,6 +64,9 @@ DRR = Depth / Axial Resolution
 $$
 
 # Wide-field microscope 
+Transmissive wide-field imaging:
+
+![widefield_schematic](./../assets/widefield_schematic.jpg)
 ## Definition:
 1. illumination: flood illumination and illumination on entire FOV simultaneous
 2. detection: image entire FOV simultaneously 
@@ -71,7 +74,7 @@ $$
 - Way 1: Direct mapping: use a lens to direct relay the light source to object plane
 
     light source |---l1---| lens |---l2---| object
-- Way 2: Kholer illumination: put the object at the back focal plane of the lens, so that the object is illuminated by the fourier transformation of the light source
+- Way 2: [Kholer illumination](https://en.wikipedia.org/wiki/K%C3%B6hler_illumination): put the object at the back focal plane of the lens, so that the object is illuminated by the fourier transformation of the light source
 
     light source |---f---| lens |---f---| object
 
@@ -89,6 +92,13 @@ $$
     P.S. Honestly I don't fully understand the difference between a point and planar object here but I don't think it's important. Normally we will quantify the spatial resolution using sub-diffraction point object in microscopy field.
 
 # Confocal microscope
+Transmissive confocal imaging:
+
+![confocal schematic](./../assets/confocal_schematic.jpg)
+
+Reflective confocal imaging:
+
+![confocal schematic 2](./../assets/confocal_schematic2.jpg)
 ## Illumination:
 Only one point is illuminated at a time. Rasterized scan.
 
@@ -100,7 +110,11 @@ A pinhole is used and positioned at the conjugate plan of the illuminated object
 1. lateral resolution: Provided by both illumination (because the illumination is not uniform but with structure) and detection optics
 2. axial resolution: Provided for both point and planar objects 
 
-# PSF of a Lens
+## Penetration 
+Penetration of hundreds of micrometers into scattering biological tissues. Less than one transport mean free path.
+
+
+# PSF of a Lens 
 It can be computed by the Hankel function.
 $$
 h(u,v) = 2 \int exp(\frac{i}{2}u\rho^2)J_0(\rho v)\rho d\rho
@@ -112,7 +126,17 @@ nsin(\alpha)=NA, \
 v = \frac{2\pi sin(\alpha)}{\lambda _0}r \ 
 $$
 
-where $\rho$ is normalized radial coordinate at the pupil, which ranges in [0,1]. $\alpha$ is the angle of the light cone entering the lens emitted from the object, which is associated with NA and regarded as constant due to a shallow depth of interest. $ r $ is the radius of the subject in FOV in polar coordiante.
+where $\rho$ is normalized radial coordinate at the exit pupil, which ranges in [0,1]. $\alpha$ is the angle of the light cone entering the lens emitted from the object, which is associated with NA and regarded as constant due to a shallow depth of interest. $ r $ is the radius of the subject in FOV in polar coordiante.
+
+## Image formation in coherent and incoherent imaging
+### Coherent imaging:
+$$
+I_c = |f*h|^2
+$$
+### Incoherent imaging (e.g. fluorescent imaging):
+$$
+I_{ic} = |f|^2 * |h|^2
+$$
 
 ## Lateral PSF:
 
@@ -145,7 +169,18 @@ $$
 $$
 PSF = |h_{illumination} \cdot h_{detection}|^2
 $$
-Here we simplify it by taking same function for both illumination and detection.
+__Derivation__:
+
+For pixel of image $I$ at location $t$, we should translate the sample $E(x)$ before the illumination PSF $h_i(x)$ and detection PSF $h_d(x)$ 
+$$
+I(t) = (E(x-t) \cdot h_i(x)) * h_d(x)|_{x=0} = E(-x) * (h_i(x) \cdot h_d(-x))
+$$
+$$
+PSF = (h_i(x) \cdot h_d(-x)) 
+$$
+In the derivation above, we multiply the illumination with the sample because the illumination is static. (It will have same conclusion if we scan laser and pinhole, rather than scanning sample. But we only consider the latter case here) We have a $x=0$ at the end of the convolution because we place a pinhole in conjugate to the illumination.
+
+In the following discussion, we simplify it by taking same function for both illumination and detection.
 $$
 PSF = |h|^4
 $$
@@ -166,6 +201,20 @@ $$
 - Lateral: $0.61 \lambda / NA$
 - Axial: $2 \lambda /NA^2$
 
+__Derivation for lateral__:
+
+Rayleigh criterion argued that the distance between two resolvable points is the distance from the center to the first local minimal intensity in Airy disk. Consider the $(\frac{J_1(v)}{v})^2$ in the expression of lateral PSF $|h(0,v)|^2=4(\frac{J_1(v)}{v})^2$. 
+
+![bessel1_over_z](./../assets/bessel1_over_z.jpg)
+
+$$
+v \approx 3.824=\frac{2\pi sin(\alpha)}{\lambda _0}r
+$$
+$NA=nsin(\alpha )$, thus 
+$$
+r \approx 0.61*\frac{\lambda _0 }{NA}
+$$
+
 ### 2. Full Width at Half Maximum (FWHM): 
 - Lateral: 
     - For __confocal__:  $0.37 \lambda / NA$
@@ -179,14 +228,18 @@ $$
 \frac{Resolution(axial)}{Resolution(lateral)} = \frac{3.6}{NA}
 $$
 
-# Image formation in coherent and incoherent imaging
-### Coherent imaging:
+__Derivation for lateral for wide-field__:
+
+Consider the $(\frac{J_1(v)}{v})^2$ in the expression of lateral PSF $|h(0,v)|^2=4(\frac{J_1(v)}{v})^2$. 
+
+![bessel1_over_z_2](./../assets/bessel1_over_z_2.jpg)
+
 $$
-I_c = |f*h|^2
+v \approx 1.612=\frac{2\pi sin(\alpha)}{\lambda _0}r
 $$
-### Incoherent imaging:
+thus 
 $$
-I_{ic} = |f|^2 * |h|^2
+FWHM = 2r \approx 0.51*\frac{\lambda _0 }{NA}
 $$
 
 
