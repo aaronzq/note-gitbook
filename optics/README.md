@@ -21,3 +21,42 @@ This is especially true in full field OCT-LIFT simulaiton. For the wavefront fro
 p.s. To use a lens to focus a light bulb cannot generate spatially-coherent light because the smallest size of the focused light is larger than the image of the light bulb.
 
 **Temporally coherent**: The extent of time (or propagation distance) that the wavefronts are correlated. This is the coherence related to the spectral width of light. White light has very low temporally coherence and thus short coherent length. Therefore it provides the Fourier OCT system the ability of optical sectioning.
+
+## Dispersing in the materials
+
+Lights with different frequency have different wavelength. This is true in vacuum and also in all kinds of materials. In vacuum, we have a constant light speed $c$.
+$$
+c=\lambda _0 f
+$$
+When the light with frequency $f$ enters a medium, the frequency stays the same. The refractive index $n$ of the medium is a material characteristic and a function of light frequency $f$. The speed and wavelength of light in this specific medium are then defined as:
+$$
+v_n = \frac{c}{n}
+$$
+$$
+\lambda _n = \frac{\lambda _0}{n}
+$$
+$$
+v_n = \lambda _n f
+$$
+We can emphasize that both light speed and wavelength are the function of the refractive index. Thus It's not always true that red light travels faster than violet light. Imagine a material that's dispersing-free, which means the refractive index is the same for all the light. Then red and violet light travels with the same speed. As for their wavelength:
+$$
+\lambda ^{red}_n = \lambda ^{red}_0 / n
+$$
+$$
+\lambda ^{violet}_n = \lambda ^{violet}_0 / n
+$$
+Here the $\lambda _0$ is the wavelength in the vacuum. 
+
+Another example can be: if we know the wavelength of the light in the medium, can we determine which light it is, i.e. what the wavelength it has in vacuum? 
+
+No, since for same light, the wavelength will vary in different material. If we don't know the refractive index of this material, then we cannot identify the light. 
+
+Although not stated before, it's commonsense that we refer to the vacuum environment when referring to the light with its wavelength. When we say light at 600 nm, we are talking about light with wavelength 600 nm in vacuum. And when we plot the refractive index of the material with respect to the wavelength (dispersing property of the material), we plot the wavelength in the vacuum. It won't make sense to plot against the wavelength in the specific material because the latter is actually determined by the refractive index itself. 
+
+Also, it's dangerous to simply think that light with longer wavelenth travels faster in the medium. e.g. In the water, it holds true in the visible light spectrum: We see a descending refractive index when the wavelenth increases. But when light approaches longer wavelenth, it becomes the contrary where light with longer wavelength meets larger refractive index and thus travels slower.
+
+[The refractive index of water](https://refractiveindex.info/?shelf=main&book=H2O&page=Hale)
+
+In conclusion, wave number $k=2\pi /\lambda$, wavelength $\lambda $, light speed $v$ in the medium are dependent to refractive index. The refractive index is a function to the light frequency, or wavelength in the vacuum. 
+
+
