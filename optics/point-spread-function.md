@@ -114,7 +114,7 @@ A pinhole is used and positioned at the conjugate plan of the illuminated object
 Penetration of hundreds of micrometers into scattering biological tissues. Less than one transport mean free path.
 
 
-# PSF of a Lens 
+# PSF of a Lens (Gu book Chapter 3)
 It can be computed by the Hankel function.
 $$
 h(u,v) = 2 \int exp(\frac{i}{2}u\rho^2)J_0(\rho v)\rho d\rho
